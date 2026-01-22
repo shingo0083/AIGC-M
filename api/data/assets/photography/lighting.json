@@ -1,0 +1,16 @@
+[
+  {
+    "label": "自然光",
+    "options": [
+      { "label": "黄金时刻", "value": "golden hour sunlight, warm backlighting, sun flare" },
+      { "label": "阴天柔光", "value": "overcast soft lighting, diffused shadows" }
+    ]
+  },
+  {
+    "label": "人造光",
+    "options": [
+      { "label": "赛博霓虹", "value": "neon lights, blue and pink side lighting" },
+      { "label": "影棚伦勃朗光", "value": "studio lighting, rembrandt lighting scheme" }
+    ]
+  }
+]

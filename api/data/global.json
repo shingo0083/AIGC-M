@@ -1,0 +1,23 @@
+{
+    "shot_types": [
+      { "label": "默认", "value": "" },
+      { "label": "特写 (Close-up)", "value": "a close-up portrait focusing on the face and expression, cutting off at the shoulders" },
+      { "label": "半身像 (Upper Body)", "value": "a medium shot capturing the character from the waist up" },
+      { "label": "全身像 (Full Body)", "value": "a wide full-body shot showing the character completely from head to toe, ensuring the shoes and feet are fully visible within the frame" }
+    ],
+    "body_types": [
+      { "label": "默认", "value": "" },
+      { "label": "纤细 (Slim)", "value": "(slender idol physique:1.3), (A4 waist:1.2), flat tummy, slender long legs, delicate shoulders, streamlined body line, (feminine and fragile:1.1)" },
+      { "label": "丰满 (Plump)", "value": "(soft marshmallow body:1.3), (fleshy thighs:1.2), (plump and curvy:1.2), soft skin texture, feminine curves, huggable body" },
+      { "label": "健壮 (Muscular)", "value": "(fit yoga body:1.2), (11-line abs:1.2), toned but slender limbs, healthy skin glow, taut tummy, athletic chic, energetic vibe" }
+    ],
+    "cup_sizes": [
+      { "label": "A Cup", "value": "Bust volume is small and close to the ribcage profile. Subtle curvature with minimal gravitational sag. Underbust boundary and shadow are faint. In most outfits, the silhouette change is modest." },
+      { "label": "B Cup", "value": "Bust volume is modest and clearly present. Stable contour in neutral posture with light gravitational influence. Underbust boundary is mild; shadow is soft." },
+      { "label": "C Cup", "value": "Bust volume is medium and balanced against the torso. Clear, natural contour with moderate gravitational influence. Underbust boundary becomes visible in many angles." },
+      { "label": "D Cup", "value": "Bust volume is medium-large and distinctly visible relative to the torso. Gravitational load produces a clearer underbust boundary and natural underbust shadow. The silhouette is visibly shaped by volume." },
+      { "label": "E Cup", "value": "Bust volume is large and immediately apparent. Underbust boundary and contact with the torso are more pronounced due to weight and volume. Fabric tension and shape-conforming behavior appear." },
+      { "label": "F Cup", "value": "Bust volume is very large and becomes a major contributor to upper-body silhouette. Gravitational influence is strong, creating a stable and clearly defined underbust boundary." },
+      { "label": "G Cup", "value": "Bust volume is extremely large and dominates the upper-body massing. Weight and volume significantly affect shape; the underbust boundary and natural shadow are consistently visible." }
+    ]
+  }

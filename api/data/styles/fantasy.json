@@ -1,0 +1,25 @@
+{
+  "id": "fantasy_v1",
+  "name": "魔幻史诗 (Epic Fantasy)",
+  "description": "适合 D&D、魔戒风格的厚涂概念设计",
+  
+  "controller": {
+    "role": "You are a legendary concept artist for Dungeons & Dragons and Magic: The Gathering.",
+    "task": "Create an epic, highly detailed digital painting.",
+    "negative_prompt": "anime, cartoon, sketch, modern clothing, cars, text, watermark, low quality"
+  },
+
+  "template": "A majestic painting of a character with {body_type}. The character is wearing {clothing}, holding {weapon}. Standing in {scene} with {lighting}. The art style is {art_style}. {trigger_words}",
+
+  "dictionaries": {
+    "trigger_words": { "value": "epic fantasy style, oil painting texture, 8k resolution, highly detailed armor" },
+    "art_style": { "value": "Greg Rutkowski style, Ruan Jia style, cinematic composition" }
+  },
+
+  "slots": {
+    "clothing": { "source": "fantasy/clothing.json", "label": "盔甲/法袍" },
+    "weapon":   { "source": "fantasy/weapons.json", "label": "武器 (专属)" },
+    "scene":    { "source": "fantasy/scenes.json", "label": "史诗场景" },
+    "lighting": { "source": null, "label": "光影 (暂无)" }
+  }
+}

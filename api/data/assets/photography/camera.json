@@ -1,0 +1,16 @@
+[
+  {
+    "label": "相机型号",
+    "options": [
+      { "label": "Sony A7R IV", "value": "Sony A7R IV, 85mm lens" },
+      { "label": "Leica M10", "value": "Leica M10, 35mm lens, street photography style" }
+    ]
+  },
+  {
+    "label": "胶片模拟",
+    "options": [
+      { "label": "Kodak Portra 400", "value": "Kodak Portra 400 film grain, warm tones" },
+      { "label": "Cinestill 800T", "value": "Cinestill 800T, cinematic halation" }
+    ]
+  }
+]

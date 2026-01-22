@@ -1,0 +1,16 @@
+[
+  {
+    "label": "重装系列",
+    "options": [
+      { "label": "圣骑士板甲", "value": "shining silver paladin plate armor with gold trim, heavy shoulder pads" },
+      { "label": "龙鳞甲", "value": "dark red dragon scale mail, jagged spikes" }
+    ]
+  },
+  {
+    "label": "法系系列",
+    "options": [
+      { "label": "大法师长袍", "value": "mystical violet wizard robes with glowing runes, hood up" },
+      { "label": "死灵法衣", "value": "tattered black necromancer robes, smoke effects" }
+    ]
+  }
+]

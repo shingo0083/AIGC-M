@@ -1,0 +1,17 @@
+[
+    {
+      "label": "校园制服类",
+      "options": [
+        { "label": "水手服 (蓝)", "value": "a blue and white sailor uniform with a pleated skirt" },
+        { "label": "运动服 (红)", "value": "a red japanese gym uniform with bloomers" },
+        { "label": "西式制服", "value": "a beige blazer school uniform with plaid skirt" }
+      ]
+    },
+    {
+      "label": "特殊服装",
+      "options": [
+        { "label": "死库水", "value": "a dark blue school swimsuit" },
+        { "label": "女仆装", "value": "a traditional black and white maid dress with frills" }
+      ]
+    }
+  ]

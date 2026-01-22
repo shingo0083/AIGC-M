@@ -1,0 +1,23 @@
+{
+    "id": "anime_v1",
+    "name": "二次元动漫 (Anime)",
+    "description": "适合生成日系插画、赛璐璐风格",
+    
+    "controller": {
+      "role": "You are an expert anime concept artist. You are proficient in using NijiJourney and Stable Diffusion style prompts.",
+      "task": "Create a detailed prompt for an anime illustration based on the user's selection.",
+      "negative_prompt": "photorealistic, 3d, realistic, sketch, low quality, worst quality, grayscale, bad anatomy"
+    },
+  
+    "template": "Draw a {shot_type} of a character with {body_type} and {cup_size}. The character is wearing {clothing}. Accesssories include {acc_head}. The scene is {scene}. {trigger_words}",
+  
+    "dictionaries": {
+      "trigger_words": { "value": "anime style, vibrant colors, high quality" }
+    },
+  
+    "slots": {
+      "clothing": { "source": "anime/clothing.json", "label": "服装" },
+      "acc_head": { "source": null, "label": "头饰 (此风格暂无)" }, 
+      "scene":    { "source": null, "label": "场景 (暂未配置)" }
+    }
+  }

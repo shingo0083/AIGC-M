@@ -1,0 +1,16 @@
+[
+  {
+    "label": "休闲",
+    "options": [
+      { "label": "连帽卫衣", "value": "casual grey hoodie, street style" },
+      { "label": "白T牛仔裤", "value": "simple white t-shirt and blue denim jeans" }
+    ]
+  },
+  {
+    "label": "正式",
+    "options": [
+      { "label": "商务西装", "value": "tailored navy blue business suit, white shirt, tie" },
+      { "label": "晚礼服", "value": "elegant red silk evening gown" }
+    ]
+  }
+]

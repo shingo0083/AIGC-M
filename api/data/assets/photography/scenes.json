@@ -1,0 +1,9 @@
+[
+  {
+    "label": "城市",
+    "options": [
+      { "label": "纽约街头", "value": "busy New York City street, yellow cabs in background" },
+      { "label": "咖啡馆", "value": "cozy coffee shop window seat, rainy day" }
+    ]
+  }
+]

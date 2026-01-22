@@ -1,0 +1,9 @@
+[
+  {
+    "label": "野外",
+    "options": [
+      { "label": "上古遗迹", "value": "ancient stone ruins covered in moss, misty mountains in background" },
+      { "label": "巨龙巢穴", "value": "inside a dark cave filled with gold coins and treasures" }
+    ]
+  }
+]
