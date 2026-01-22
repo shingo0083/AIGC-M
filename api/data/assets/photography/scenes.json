@@ -2,8 +2,52 @@
   {
     "label": "城市",
     "options": [
-      { "label": "纽约街头", "value": "busy New York City street, yellow cabs in background" },
-      { "label": "咖啡馆", "value": "cozy coffee shop window seat, rainy day" }
+      {
+        "label": "纽约街头",
+        "value": "busy New York City street, yellow cabs in background"
+      },
+      {
+        "label": "咖啡馆",
+        "value": "cozy coffee shop window seat, rainy day"
+      }
+    ]
+  },
+  {
+    "label": "全球旅拍 (Tourist Spots)",
+    "options": [
+      {
+        "label": "圣托里尼",
+        "value": "Santorini Greece, white architecture and blue domes, Aegean sea in background, bright daylight"
+      },
+      {
+        "label": "京都竹林",
+        "value": "Kyoto Arashiyama bamboo forest, serene green atmosphere, soft filtered light"
+      },
+      {
+        "label": "巴黎铁塔",
+        "value": "balcony view with Eiffel Tower in the background, romantic Parisian evening atmosphere"
+      },
+      {
+        "label": "冰岛黑沙滩",
+        "value": "Iceland Reynisfjara black sand beach, moody atmosphere, crashing waves"
+      }
+    ]
+  },
+  {
+    "label": "室内/私房 (Indoor)",
+    "options": [
+      {
+        "label": "阳光卧室",
+        "value": "sun-drenched bedroom with sheer white curtains, cozy unmade bed, morning light aesthetic"
+      },
+      {
+        "label": "落地窗酒店",
+        "value": "luxury high-rise hotel room with floor-to-ceiling windows, overlooking a city night skyline"
+      },
+      {
+        "label": "日式榻榻米",
+        "value": "traditional Japanese tatami room, warm wooden textures, soft natural light from shoji screens"
+      }
     ]
   }
 ]

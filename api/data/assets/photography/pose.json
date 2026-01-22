@@ -1,0 +1,18 @@
+[
+  {
+    "label": "优雅摆拍 (Elegant)",
+    "options": [
+      { "label": "回眸一瞥", "value": "looking back over shoulder with an elegant and alluring gaze, showcasing the neck line" },
+      { "label": "撩发瞬间", "value": "gently running fingers through hair, arms raised to highlight body curves, candid moment" },
+      { "label": "侧身剪影", "value": "standing sideways to camera, highlighting the S-curve silhouette against the light" }
+    ]
+  },
+  {
+    "label": "慵懒性感 (Sultry)",
+    "options": [
+      { "label": "跪姿/鸭子坐", "value": "sitting on knees in a cute but sexy pose, leaning forward slightly" },
+      { "label": "伸懒腰", "value": "stretching arms overhead, arching back slightly to accentuate the waistline" },
+      { "label": "俯视视角", "value": "looking up at the camera from a lower angle, vulnerable and innocent expression" }
+    ]
+  }
+]

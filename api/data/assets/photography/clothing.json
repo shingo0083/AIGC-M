@@ -2,15 +2,61 @@
   {
     "label": "休闲",
     "options": [
-      { "label": "连帽卫衣", "value": "casual grey hoodie, street style" },
-      { "label": "白T牛仔裤", "value": "simple white t-shirt and blue denim jeans" }
+      {
+        "label": "连帽卫衣",
+        "value": "casual grey hoodie, street style"
+      },
+      {
+        "label": "白T牛仔裤",
+        "value": "simple white t-shirt and blue denim jeans"
+      }
+    ]
+  },
+  {
+    "label": "纯欲风 (Pure Desire)",
+    "options": [
+      {
+        "label": "吊带丝绸裙",
+        "value": "white silk slip dress with thin straps, clinging to body curves, lustrous fabric texture"
+      },
+      {
+        "label": "Oversize衬衫",
+        "value": "oversized white boyfriend shirt, unbuttoned at the top showing collarbone, messy look"
+      },
+      {
+        "label": "JK制服",
+        "value": "classic Japanese sailor school uniform (seifuku), navy blue pleated skirt, youthful vibe"
+      }
+    ]
+  },
+  {
+    "label": "显身材 (Bodycon)",
+    "options": [
+      {
+        "label": "露背毛衣",
+        "value": "backless virgin killer sweater, tight ribbed knit fabric, cozy but provocative"
+      },
+      {
+        "label": "紧身包臀裙",
+        "value": "tight mini bodycon dress, highlighting hourglass figure"
+      },
+      {
+        "label": "瑜伽服",
+        "value": "tight pastel colored yoga leggings and sports bra, athletic aesthetic"
+      }
     ]
   },
   {
     "label": "正式",
     "options": [
-      { "label": "商务西装", "value": "tailored navy blue business suit, white shirt, tie" },
-      { "label": "晚礼服", "value": "elegant red silk evening gown" }
+      {
+        "label": "黑色晚礼服",
+        "value": "elegant black evening gown with high slit, red carpet style"
+      },
+      {
+        "label": "商务西装",
+        "value": "tailored navy blue business suit, sharp look"
+      }
     ]
   }
 ]
