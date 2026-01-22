@@ -1,0 +1,23 @@
+[
+  {
+    "label": "柯达 (Kodak)",
+    "options": [
+      { "label": "Portra 400 (人像王)", "value": "Kodak Portra 400 film stock, fine grain, warm skin tones, pastoral color palette" },
+      { "label": "Gold 200 (暖调)", "value": "Kodak Gold 200, vintage golden yellow tones, nostalgic family photo look" }
+    ]
+  },
+  {
+    "label": "富士 (Fujifilm)",
+    "options": [
+      { "label": "Classic Chrome", "value": "Fujifilm Classic Chrome simulation, desaturated colors, documentary style, muted tones" },
+      { "label": "Velvia (高饱和)", "value": "Fujifilm Velvia 50, high contrast, vibrant vivid colors, landscape photography style" }
+    ]
+  },
+  {
+    "label": "黑白/艺术 (B&W)",
+    "options": [
+      { "label": "Ilford HP5", "value": "Ilford HP5 Plus 400, high contrast black and white, gritty grain, street photography aesthetic" },
+      { "label": "Cinestill 800T", "value": "Cinestill 800T, tungsten balanced, halation around lights, cinematic night photography" }
+    ]
+  }
+]

@@ -1,16 +1,24 @@
 [
   {
-    "label": "相机型号",
+    "label": "顶级机身 (Flagship)",
     "options": [
-      { "label": "Sony A7R IV", "value": "Sony A7R IV, 85mm lens" },
-      { "label": "Leica M10", "value": "Leica M10, 35mm lens, street photography style" }
+      { "label": "Sony A7R IV", "value": "Shot on Sony A7R IV, 85mm G Master lens, extreme sharpness, high resolution digital look" },
+      { "label": "Canon R5", "value": "Shot on Canon EOS R5, 50mm f/1.2 lens, pleasing skin tones, soft color science" },
+      { "label": "Leica M10", "value": "Shot on Leica M10 Monochrom, Summilux 35mm lens, prestigious german engineering, artistic soul" }
     ]
   },
   {
-    "label": "胶片模拟",
+    "label": "中画幅 (Medium Format)",
     "options": [
-      { "label": "Kodak Portra 400", "value": "Kodak Portra 400 film grain, warm tones" },
-      { "label": "Cinestill 800T", "value": "Cinestill 800T, cinematic halation" }
+      { "label": "Hasselblad", "value": "Shot on Hasselblad X2D 100C, medium format sensor, insane depth of field, 3d pop effect" },
+      { "label": "Fujifilm GFX", "value": "Shot on Fujifilm GFX 100S, film simulation color science, nostalgic mood" }
+    ]
+  },
+  {
+    "label": "复古/胶片机 (Vintage)",
+    "options": [
+      { "label": "Polaroid", "value": "Shot on Polaroid Now+, vintage instant photo style, soft focus, vignette, authentic imperfections" },
+      { "label": "iPhone 15 Pro", "value": "Shot on iPhone 15 Pro Max, computational photography, HDR, candid phone aesthetic" }
     ]
   }
 ]

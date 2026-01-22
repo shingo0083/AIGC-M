@@ -7,13 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-# 加载 .env 环境变量
 load_dotenv()
-
-# 初始化 FastAPI 应用
 app = FastAPI()
 
-# 配置跨域 (CORS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -26,14 +22,83 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_ROOT = os.path.join(BASE_DIR, "data")
 
 def load_json(relative_path):
-    """辅助函数：安全加载 JSON 文件"""
     full_path = os.path.join(DATA_ROOT, relative_path)
     if not os.path.exists(full_path): return None
     try:
         with open(full_path, "r", encoding="utf-8") as f: return json.load(f)
-    except Exception as e: return None
+    except: return None
 
-# ==================== GET 接口 (保持不变) ====================
+# ==================== 核心逻辑：蓝图构建器 (Smart Builder) ====================
+def build_blueprint(prompt: str, style_config: dict, has_images: bool):
+    """
+    智能蓝图构建：
+    1. 动态隐藏空段落
+    2. 扩充材质识别库
+    3. 修复逻辑冲突
+    """
+    user_prompt = prompt
+    lower_prompt = user_prompt.lower()
+    
+    role = style_config.get('role', 'You are a professional photographer.') if style_config else ""
+    neg = style_config.get('negative_prompt', '') if style_config else ""
+
+    # --- 1. 组装各个模块 ---
+    
+    # [A] 策略与 LOD
+    lod_lines = []
+    if has_images:
+        lod_lines.append("IMPORTANT: Strictly maintain the facial features and identity of the source reference image.")
+        
+    if any(k in lower_prompt for k in ["full body", "wide shot", "far", "shoes", "feet"]):
+        lod_lines.append("(Render Priority: Maintain correct head-to-body proportions. Simplify facial micro-details to prevent noise.)")
+    elif any(k in lower_prompt for k in ["close-up", "portrait", "face", "eyes"]):
+        lod_lines.append("(Render Priority: Focus on high-frequency skin details, pores, and eye reflections.)")
+    
+    # [B] 物理与材质 (扩充词库!)
+    physics_notes = []
+    # 针织类
+    if any(k in lower_prompt for k in ["knit", "sweater", "cardigan", "wool", "fleece"]): 
+        physics_notes.append("Focus on the fluffy, fuzzy texture of the knit fabric.")
+    # 丝绸类
+    if any(k in lower_prompt for k in ["silk", "satin", "slip dress", "viscose"]): 
+        physics_notes.append("Render the liquid-like sheen and fluid drape of the material.")
+    # 紧身/胶衣
+    if any(k in lower_prompt for k in ["tight", "bodycon", "yoga", "latex", "leather"]): 
+        physics_notes.append("Fabric should appear stretching tightly over body curves. Render distinct texture highlights.")
+    # 透视/蕾丝 (新增!)
+    if any(k in lower_prompt for k in ["lace", "sheer", "translucent", "tulle", "chiffon"]): 
+        physics_notes.append("Render delicate transparency, intricate embroidery texture, and soft interaction between fabric and skin tone.")
+    
+    physics_str = " ".join(physics_notes)
+
+    # --- 2. 动态拼接 (只拼接有内容的板块) ---
+    
+    blocks = []
+    
+    # Header: Role
+    if role: blocks.append(role)
+    
+    blocks.append("### GENERATION BLUEPRINT")
+    
+    # Block 1: Strategy
+    if lod_lines:
+        blocks.append(f"**1. STRATEGY & LOD:**\n" + "\n".join(lod_lines))
+    
+    # Block 2: Physics (只有当检测到材质时才显示此标题!)
+    if physics_str:
+        blocks.append(f"**2. PHYSICS & MATERIAL:**\n{physics_str}")
+        
+    # Block 3: Action (永远显示)
+    blocks.append(f"**3. SCENE & ACTION:**\n{user_prompt}")
+    
+    # Block 4: Negative (永远显示)
+    if neg:
+        blocks.append(f"**4. NEGATIVE CONSTRAINTS:**\nAvoid: {neg}")
+
+    # 用双换行符连接所有板块，保持整洁
+    return "\n\n".join(blocks)
+
+# ==================== GET 接口 ====================
 @app.get("/api/init")
 def get_global_config(): return load_json("global.json")
 
@@ -67,152 +132,73 @@ def get_style_detail(style_id: str):
         if source_file is None: slot_data["disabled"] = True
         else:
             assets_path = os.path.join("assets", source_file)
-            assets_content = load_json(assets_path)
-            slot_data["options"] = assets_content if assets_content else []
+            content = load_json(assets_path)
+            slot_data["options"] = content if content else []
         assembled_slots[slot_key] = slot_data
-
     return { "manifest": manifest, "slots_data": assembled_slots }
 
-# ==================== 真实 API 对接逻辑 ====================
+# ==================== POST 接口 ====================
 
 class GenerateRequest(BaseModel):
     prompt: str
-    model: str = "gemini-3-pro-image-preview" # 默认值，也会被 .env 覆盖
+    model: str = "gemini-3-pro-image-preview"
     images: List[str] = []
-    aspect_ratio: str = "3:4"  # 新增：默认 3:4
-    style_config: Optional[dict] = None # 新增：接收风格控制参数
+    aspect_ratio: str = "3:4"
+    style_config: Optional[dict] = None
 
-def parse_upstream_response(result):
-    """
-    从上游 API 响应中提取 Base64 图片数据
-    复用你提供的多重容错逻辑
-    """
-    image_data = None
-
-    # 格式 1: candidates[0].content.parts[0].inline_data.data
-    if 'candidates' in result:
-        try:
-            parts = result['candidates'][0]['content']['parts']
-            for part in parts:
-                if 'inline_data' in part:
-                    image_data = part['inline_data']['data']
-                    break
-                elif 'inlineData' in part:
-                    image_data = part['inlineData']['data']
-                    break
-        except (KeyError, IndexError):
-            pass
-    
-    # 格式 2: 直接在根节点的 data 或 image 字段
-    if not image_data and 'data' in result: image_data = result['data']
-    if not image_data and 'image' in result: image_data = result['image']
-    
-    # 格式 3: generatedImages
-    if not image_data and 'generatedImages' in result:
-        try:
-            image_data = result['generatedImages'][0]['data']
-        except (KeyError, IndexError):
-            pass
-
-    return image_data
+# 🔥 新增：仅编译 Prompt，不生成图片
+@app.post("/api/compile")
+async def compile_prompt(req: GenerateRequest):
+    blueprint = build_blueprint(req.prompt, req.style_config, bool(req.images))
+    return {"status": "success", "blueprint": blueprint}
 
 @app.post("/api/generate")
 async def generate_image(req: GenerateRequest):
-    # 1. 读取配置
     api_url = os.getenv("GEMINI_API_URL", "http://156.238.229.55:3000")
     api_key = os.getenv("GEMINI_API_KEY")
     model_name = os.getenv("GEMINI_MODEL", req.model)
-    
     target_url = f"{api_url}/v1beta/models/{model_name}:generateContent"
     
-    print(f"🚀 发起请求: {target_url}")
-    print(f"📝 Prompt: {req.prompt[:50]}...")
-    print(f"🖼️ 附带图片数: {len(req.images)}")
+    # 调用共用的构建逻辑
+    final_prompt = build_blueprint(req.prompt, req.style_config, bool(req.images))
+    print(f"🧠 Prompt Executing: {final_prompt[:50]}...")
 
-    # ================= 核心修改：三明治 Prompt 组装 =================
-    final_prompt = req.prompt
-    
-    if req.style_config:
-        role = req.style_config.get('role', '')
-        neg = req.style_config.get('negative_prompt', '')
-        
-        # 1. 注入角色设定 (System Instruction)
-        if role:
-            final_prompt = f"{role}\n\nTask: {final_prompt}"
-            
-        # 2. 注入负面提示词 (Gemini 不支持 negative_prompt 参数，需转为自然语言)
-        if neg:
-            final_prompt += f"\n\nAvoid the following: {neg}"
-
-    print(f"🧠 最终构建的 Prompt: {final_prompt[:100]}...")
-    # ==============================================================
-
-    # 3. 构造 parts 数组 (注意这里要用 final_prompt)
     parts = [{"text": final_prompt}]
-    
-    # 如果有上传图片，将它们作为 inline_data 添加进 parts
-    for img_base64 in req.images:
-        parts.append({
-            "inline_data": {
-                "mime_type": "image/png",
-                "data": img_base64
-            }
-        })
+    for img in req.images:
+        parts.append({ "inline_data": { "mime_type": "image/png", "data": img } })
 
     payload = {
         "contents": [{"parts": parts}],
         "generationConfig": {
-            "imageConfig": {
-                # 核心修改：使用前端传来的比例
-                "aspectRatio": req.aspect_ratio,
-                "imageSize": "2K"
-            },
-            "temperature": 0.9,
-            "topK": 40,
-            "topP": 0.95,
-            "maxOutputTokens": 8192
+            "imageConfig": { "aspectRatio": req.aspect_ratio, "imageSize": "2K" },
+            "temperature": 0.9
         }
     }
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-    }
+    headers = { "Content-Type": "application/json", "Authorization": f"Bearer {api_key}" }
 
     try:
-        # 3. 调用上游 API
-        # 设置较大的 timeout (120s)，因为生图比较慢
         response = requests.post(target_url, json=payload, headers=headers, timeout=120)
-        
         if response.status_code != 200:
-            print(f"❌ 上游 API 报错: {response.text}")
-            return {"status": "error", "message": f"API Error: {response.status_code}"}
-        
+            return {"status": "error", "message": f"API Error: {response.text}"}
+            
         result = response.json()
+        image_data = None
+        # 简化版提取逻辑
+        if 'candidates' in result:
+             parts = result['candidates'][0]['content']['parts']
+             for part in parts:
+                 if 'inline_data' in part: image_data = part['inline_data']['data']
+                 elif 'inlineData' in part: image_data = part['inlineData']['data']
         
-        # 4. 解析结果
-        raw_base64 = parse_upstream_response(result)
-        
-        if raw_base64:
-            # 清理可能存在的 base64 前缀 (虽然你的脚本里写了 split，但为了保险再处理一次)
-            if "base64," in raw_base64:
-                raw_base64 = raw_base64.split("base64,")[1]
-            
-            # 拼接成前端可直接展示的 Data URL
-            final_url = f"data:image/png;base64,{raw_base64}"
-            
-            print("✅ 图片解析成功，返回给前端")
-            return {
-                "status": "success",
-                "url": final_url  # 前端 <el-image :src="url"> 可以直接显示这个字符串
-            }
+        if not image_data and 'image' in result: image_data = result['image']
+
+        if image_data:
+            if "base64," in image_data: image_data = image_data.split("base64,")[1]
+            return { "status": "success", "url": f"data:image/png;base64,{image_data}", "final_prompt": final_prompt }
         else:
-            print("❌ 无法从响应中提取图片")
-            print(f"调试响应: {json.dumps(result)[:200]}...")
-            return {"status": "error", "message": "无法解析返回的图片数据"}
+            return {"status": "error", "message": "未返回图片数据"}
 
     except Exception as e:
-        print(f"❌ 请求异常: {str(e)}")
         return {"status": "error", "message": str(e)}
 
 if __name__ == "__main__":

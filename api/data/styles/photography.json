@@ -1,25 +1,49 @@
 {
-  "id": "photo_v1",
-  "name": "真实摄影 (Photography)",
-  "description": "像国家地理杂志一样的高清实拍",
-  
+  "id": "photography",
+  "name": "真实摄影 (Realism)",
+  "description": "极致的像真摄影风格，模拟高端相机与光影质感",
   "controller": {
-    "role": "You are a professional photographer using high-end Sony and Fujifilm cameras.",
-    "task": "Take a hyper-realistic photograph.",
-    "negative_prompt": "illustration, painting, drawing, anime, 3d render, plastic skin, cartoon"
+    "role": "You are a world-class photographer using high-end equipment like Leica and Hasselblad. Your goal is to capture award-winning, photorealistic images with perfect lighting and composition.",
+    "negative_prompt": "low quality, worst quality, sketches, painting, 3d render, anime, cartoon, drawing, illustration, text, watermark, signature, bad anatomy, bad proportions, extra limbs, missing limbs, disfigured, deformed, blurry, pixelated, noise, grain, ugly, distorted face, mutated hands"
   },
-
-  "template": "photorealistic {shot_type} of a model with {body_type}. Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera_gear}, {film_stock}. {trigger_words}",
-
+  "template": "Photorealistic {shot_type} of a model with {body_type}. {pose} {makeup} Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera}, {film_type}, {aspect_ratio}",
   "dictionaries": {
-    "trigger_words": { "value": "award-winning photography, highly detailed, sharp focus, cinematic lighting, 8k resolution, raw style" }
+    "trigger_words": {
+      "value": "award-winning photography, highly detailed, sharp focus, cinematic lighting, 8k resolution, raw style"
+    }
   },
-
   "slots": {
-    "clothing":   { "source": "photography/clothing.json", "label": "现代服装" },
-    "scene":      { "source": "photography/scenes.json", "label": "拍摄地点" },
-    "lighting":   { "source": "photography/lighting.json", "label": "布光设置" },
-    "camera_gear":{ "source": "photography/camera.json", "label": "相机/胶片 (专属)" },
-    "pose": { "source": "photography/pose.json", "label": "姿态动作" }
+    "shot_type": {
+      "label": "景别 (Shot)",
+      "source": "photography/shot_type.json"
+    },
+    "pose": {
+      "label": "姿态动作",
+      "source": "photography/pose.json"
+    },
+    "makeup": {
+      "label": "妆容风格",
+      "source": "photography/makeup.json"
+    },
+    "clothing": {
+      "label": "服装 (Cloth)",
+      "source": "photography/clothing.json"
+    },
+    "scene": {
+      "label": "场景 (Scene)",
+      "source": "photography/scenes.json"
+    },
+    "lighting": {
+      "label": "光影 (Light)",
+      "source": "photography/lighting.json"
+    },
+    "camera": {
+      "label": "相机 (Camera)",
+      "source": "photography/camera.json"
+    },
+    "film_type": {
+      "label": "胶片 (Film)",
+      "source": "photography/film.json"
+    }
   }
 }

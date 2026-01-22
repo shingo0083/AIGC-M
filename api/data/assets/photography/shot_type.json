@@ -1,0 +1,18 @@
+[
+  {
+    "label": "人像常用 (Portrait)",
+    "options": [
+      { "label": "大头照 (Close-up)", "value": "extreme close-up shot focusing on eyes and face details, macro photography" },
+      { "label": "胸像 (Portrait)", "value": "medium portrait shot from chest up, focusing on expression" },
+      { "label": "七分身 (Cowboy)", "value": "medium-long shot from knees up (cowboy shot), standard cinematic framing" }
+    ]
+  },
+  {
+    "label": "环境人像 (Wide)",
+    "options": [
+      { "label": "全身照 (Full Body)", "value": "wide full-body shot showing the character completely from head to toe, shoes visible" },
+      { "label": "大远景 (Wide Angle)", "value": "ultra wide angle shot, small subject in vast environment, establishing shot" },
+      { "label": "上帝视角 (Overhead)", "value": "high angle overhead drone shot, looking down directly from above" }
+    ]
+  }
+]
