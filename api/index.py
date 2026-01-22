@@ -79,6 +79,7 @@ class GenerateRequest(BaseModel):
     prompt: str
     model: str = "gemini-3-pro-image-preview" # 默认值，也会被 .env 覆盖
     images: List[str] = []
+    aspect_ratio: str = "3:4"  # 新增：默认 3:4
 
 def parse_upstream_response(result):
     """
@@ -144,8 +145,9 @@ async def generate_image(req: GenerateRequest):
         "contents": [{"parts": parts}],
         "generationConfig": {
             "imageConfig": {
-                "aspectRatio": "1:1",
-                "imageSize": "4K"
+                # 核心修改：使用前端传来的比例
+                "aspectRatio": req.aspect_ratio,
+                "imageSize": "2K"
             },
             "temperature": 0.9,
             "topK": 40,
