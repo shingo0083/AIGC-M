@@ -80,6 +80,7 @@ class GenerateRequest(BaseModel):
     model: str = "gemini-3-pro-image-preview" # 默认值，也会被 .env 覆盖
     images: List[str] = []
     aspect_ratio: str = "3:4"  # 新增：默认 3:4
+    style_config: Optional[dict] = None # 新增：接收风格控制参数
 
 def parse_upstream_response(result):
     """
@@ -128,9 +129,26 @@ async def generate_image(req: GenerateRequest):
     print(f"📝 Prompt: {req.prompt[:50]}...")
     print(f"🖼️ 附带图片数: {len(req.images)}")
 
-    # 2. 构建符合 Gemini 协议的 Payload
-    # 构造 parts 数组
-    parts = [{"text": req.prompt}]
+    # ================= 核心修改：三明治 Prompt 组装 =================
+    final_prompt = req.prompt
+    
+    if req.style_config:
+        role = req.style_config.get('role', '')
+        neg = req.style_config.get('negative_prompt', '')
+        
+        # 1. 注入角色设定 (System Instruction)
+        if role:
+            final_prompt = f"{role}\n\nTask: {final_prompt}"
+            
+        # 2. 注入负面提示词 (Gemini 不支持 negative_prompt 参数，需转为自然语言)
+        if neg:
+            final_prompt += f"\n\nAvoid the following: {neg}"
+
+    print(f"🧠 最终构建的 Prompt: {final_prompt[:100]}...")
+    # ==============================================================
+
+    # 3. 构造 parts 数组 (注意这里要用 final_prompt)
+    parts = [{"text": final_prompt}]
     
     # 如果有上传图片，将它们作为 inline_data 添加进 parts
     for img_base64 in req.images:

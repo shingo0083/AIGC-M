@@ -131,7 +131,7 @@
                     </template>
                   </el-image>
                   <div class="image-tools">
-                    <el-button type="primary" icon="Download" size="large" @click="downloadImage(generatedImage)"
+                    <el-button type="primary" :icon="Download" size="large" @click="downloadImage(generatedImage)"
                       style="width: 80%; max-width: 300px;">
                       下载保存图片
                     </el-button>
@@ -260,15 +260,24 @@ const copyPrompt = () => { navigator.clipboard.writeText(finalPrompt.value); ElM
 const handleGenerate = async () => {
   generating.value = true
   generatedImage.value = ''
-
+  
   try {
+    // 1. 获取当前风格的控制器配置 (如果有)
+    // 注意：这里需要从 currentManifest 中获取 controller，因为 styleList 可能只包含摘要
+    const controllerConfig = currentManifest.value ? currentManifest.value.controller : null
+
+    // 2. 组装 Payload
     const payload = {
       prompt: finalPrompt.value,
       model: 'gemini-3-pro-image-preview',
       images: base64Images.value,
-      aspect_ratio: form.aspect_ratio || '3:4'
+      aspect_ratio: form.aspect_ratio || '3:4',
+      style_config: controllerConfig
     }
+
+    // 3. 发送请求
     const res = await axios.post(`${API_BASE}/generate`, payload)
+    
     if (res.data.status === 'success') {
       generatedImage.value = res.data.url
       ElMessage.success('生成成功')

@@ -12,7 +12,7 @@
   "template": "A photorealistic {shot_type} of a model with {body_type}. Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera_gear}, {film_stock}. {trigger_words}",
 
   "dictionaries": {
-    "trigger_words": { "value": "raw photo, 8k uhd, dslr, soft focus, high quality, fujifilm color" }
+    "trigger_words": { "value": "award-winning photography, highly detailed, sharp focus, cinematic lighting, 8k resolution, raw style" }
   },
 
   "slots": {
