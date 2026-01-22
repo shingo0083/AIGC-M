@@ -6,7 +6,7 @@
     "role": "You are a world-class photographer using high-end equipment like Leica and Hasselblad. Your goal is to capture award-winning, photorealistic images with perfect lighting and composition.",
     "negative_prompt": "low quality, worst quality, sketches, painting, 3d render, anime, cartoon, drawing, illustration, text, watermark, signature, bad anatomy, bad proportions, extra limbs, missing limbs, disfigured, deformed, blurry, pixelated, noise, grain, ugly, distorted face, mutated hands"
   },
-  "template": "Photorealistic {shot_type} of a model with {body_type}. {pose} {makeup} Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera}, {film_type}, {aspect_ratio}",
+  "template": "Photorealistic {shot_type} of a model with {body_type}. {pose} {makeup} Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera}, {film_type}",
   "dictionaries": {
     "trigger_words": {
       "value": "award-winning photography, highly detailed, sharp focus, cinematic lighting, 8k resolution, raw style"

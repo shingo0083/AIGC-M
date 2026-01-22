@@ -192,7 +192,6 @@ const computedDraftPrompt = computed(() => {
   Object.keys(currentManifest.value.dictionaries || {}).forEach(k => ctx[k] = ctx[k].value)
   let prompt = t.replace(/\{(\w+)\}/g, (_, k) => ctx[k] || '')
   prompt = prompt.replace(/\s+/g, ' ').replace(/,\s*\./g, '.').replace(/\s([,.])/g, '$1').replace(/,+/g, ',').replace(/\.+/g, '.').replace(/,([^\s])/g, ', $1').replace(/^[,.\s]+|[,.\s]+$/g, '').trim()
-  if (form.aspect_ratio && form.aspect_ratio !== '1:1') prompt += `, aspect ratio ${form.aspect_ratio}`
   return prompt
 })
 
@@ -208,7 +207,8 @@ const handleCompile = async () => {
     const payload = {
       prompt: computedDraftPrompt.value, // 把草稿发给后端
       style_config: currentManifest.value ? currentManifest.value.controller : null,
-      images: base64Images.value // 告诉后端有没有图片(影响锁脸指令)
+      images: base64Images.value, // 告诉后端有没有图片(影响锁脸指令)
+      aspect_ratio: form.aspect_ratio || '3:4'
     }
     const res = await axios.post(`${API_BASE}/compile`, payload)
     if (res.data.status === 'success') {

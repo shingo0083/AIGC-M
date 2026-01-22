@@ -30,6 +30,7 @@ def load_json(relative_path):
 
 # ==================== 核心逻辑：蓝图构建器 (Smart Builder) ====================
 def build_blueprint(prompt: str, style_config: dict, has_images: bool):
+    ...
     """
     智能蓝图构建：
     1. 动态隐藏空段落
@@ -39,8 +40,8 @@ def build_blueprint(prompt: str, style_config: dict, has_images: bool):
     user_prompt = prompt
     lower_prompt = user_prompt.lower()
     
-    role = style_config.get('role', 'You are a professional photographer.') if style_config else ""
-    neg = style_config.get('negative_prompt', '') if style_config else ""
+    role = (style_config or {}).get('role', 'You are a professional photographer.')
+    neg  = (style_config or {}).get('negative_prompt', '')
 
     # --- 1. 组装各个模块 ---
     
@@ -164,7 +165,7 @@ async def generate_image(req: GenerateRequest):
     print(f"🧠 Prompt Executing: {final_prompt[:50]}...")
 
     parts = [{"text": final_prompt}]
-    for img in req.images:
+    for img in (req.images or []):
         parts.append({ "inline_data": { "mime_type": "image/png", "data": img } })
 
     payload = {
