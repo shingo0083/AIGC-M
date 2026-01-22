@@ -158,7 +158,8 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { Plus, View, Download, Loading } from '@element-plus/icons-vue' 
 
-const API_BASE = 'http://127.0.0.1:8000/api'
+// 如果是本地开发环境(DEV)，用本地地址；如果是生产环境(PROD)，用相对路径 '/api'
+const API_BASE = import.meta.env.DEV ? 'http://127.0.0.1:8000/api' : '/api'
 
 // State
 const loadingStyles = ref(true)
