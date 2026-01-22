@@ -228,26 +228,36 @@ const finalPrompt = computed(() => {
   // 2. 获取当前风格的模板
   let t = currentManifest.value.template
 
-  // 3. 合并上下文：表单用户的选择 + 风格自带的词典
+  // 3. 合并上下文
   const ctx = { ...form, ...currentManifest.value.dictionaries }
-
-  // 提取词典中的 value 值 (因为后端返回的是 { "trigger_words": { "value": "..." } })
   Object.keys(currentManifest.value.dictionaries || {}).forEach(k => ctx[k] = ctx[k].value)
 
-  // 4. 正则替换：将模板中的 {key} 替换为 ctx 中的具体内容
+  // 4. 替换变量
   let prompt = t.replace(/\{(\w+)\}/g, (_, k) => ctx[k] || '')
 
-  // 5. 清洗文本：去除多余空格、修复逗号问题
+  // 5. 【增强版】清洗文本逻辑
   prompt = prompt
-    .replace(/\s+/g, ' ')       // 合并多个空格
-    .replace(/\s,\s/g, ', ')    // 修复 " , "
-    .replace(/ ,/g, ',')        // 修复 " ,"
-    .replace(/,+/g, ',')        // 修复连续逗号 ",,"
-    .replace(/^,|,$/g, '')      // 去除首尾逗号
+    // (a) 将多个空格合并为一个
+    .replace(/\s+/g, ' ')
+    
+    // (b) 核心修复：将 ", ." 替换为 "." (解决你遇到的 lens, . 问题)
+    .replace(/,\s*\./g, '.')
+    
+    // (c) 修复符号前的空格： " ," -> ","  和 " ." -> "."
+    .replace(/\s([,.])/g, '$1')
+    
+    // (d) 去除重复符号： ",," -> "," 和 ".." -> "."
+    .replace(/,+/g, ',')
+    .replace(/\.+/g, '.')
+    
+    // (e) 确保逗号后有空格 (美观)
+    .replace(/,([^\s])/g, ', $1')
+
+    // (f) 去除首尾的标点和空格
+    .replace(/^[,.\s]+|[,.\s]+$/g, '')
     .trim()
 
-  // 6. 【核心修改】追加画幅比例 (自然语言风格)
-  // 如果选择了画幅，且不是默认的 1:1，则在末尾追加描述
+  // 6. 追加画幅比例
   if (form.aspect_ratio && form.aspect_ratio !== '1:1') {
     prompt += `, aspect ratio ${form.aspect_ratio}`
   }

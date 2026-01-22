@@ -1,14 +1,18 @@
 [
   {
-    "label": "休闲",
+    "label": "休闲 (Casual)",
     "options": [
       {
         "label": "连帽卫衣",
-        "value": "casual grey hoodie, street style"
+        "value": "casual grey heavyweight cotton hoodie, soft fleece texture, loose relaxed fit with natural fabric folds, street style"
       },
       {
         "label": "白T牛仔裤",
-        "value": "simple white t-shirt and blue denim jeans"
+        "value": "simple crisp white cotton t-shirt, slightly translucent in sunlight, paired with vintage blue washed denim jeans, rough coarse fabric texture"
+      },
+      {
+        "label": "针织开衫",
+        "value": "beige chunky knit cardigan, oversized and slouchy, fuzzy wool texture, warm and cozy atmosphere"
       }
     ]
   },
@@ -17,15 +21,19 @@
     "options": [
       {
         "label": "吊带丝绸裙",
-        "value": "white silk slip dress with thin straps, clinging to body curves, lustrous fabric texture"
+        "value": "white silk slip dress with thin spaghetti straps, pearlescent sheen, fluid liquid fabric draping over curves, soft ripples, delicate texture"
       },
       {
         "label": "Oversize衬衫",
-        "value": "oversized white boyfriend shirt, unbuttoned at the top showing collarbone, messy look"
+        "value": "oversized thin white cotton shirt, backlit transparency revealing silhouette, unbuttoned top showing collarbone, crisp but wrinkled fabric texture"
       },
       {
         "label": "JK制服",
-        "value": "classic Japanese sailor school uniform (seifuku), navy blue pleated skirt, youthful vibe"
+        "value": "classic Japanese sailor uniform (seifuku), sharp knife-pleated navy skirt, matte crisp fabric, stiff collar, youthful and neat appearance"
+      },
+      {
+        "label": "蕾丝睡袍",
+        "value": "sheer white lace robe, intricate floral embroidery, semi-transparent tulle fabric, soft and dreamy, revealing skin tone underneath"
       }
     ]
   },
@@ -34,28 +42,36 @@
     "options": [
       {
         "label": "露背毛衣",
-        "value": "backless virgin killer sweater, tight ribbed knit fabric, cozy but provocative"
+        "value": "backless virgin killer sweater, chunky ribbed knit texture, soft cashmere wool, form-fitting and cozy, highlighting back curve"
       },
       {
         "label": "紧身包臀裙",
-        "value": "tight mini bodycon dress, highlighting hourglass figure"
+        "value": "tight mini bodycon dress, smooth elastic fabric, stretching over body lines, matte finish, perfectly sculpting the figure"
       },
       {
         "label": "瑜伽服",
-        "value": "tight pastel colored yoga leggings and sports bra, athletic aesthetic"
+        "value": "tight pastel colored yoga set, buttery soft nylon fabric, matte finish, seamless design, second-skin fit"
+      },
+      {
+        "label": "乳胶/皮衣",
+        "value": "shiny black latex bodysuit, high gloss reflection, tight and slick, capturing highlights, futuristic texture"
       }
     ]
   },
   {
-    "label": "正式",
+    "label": "正式/礼服 (Formal)",
     "options": [
       {
         "label": "黑色晚礼服",
-        "value": "elegant black evening gown with high slit, red carpet style"
+        "value": "elegant black velvet evening gown, rich deep texture, light-absorbing fabric, high slit, soft heavy drape"
+      },
+      {
+        "label": "亮片长裙",
+        "value": "shimmering sequin dress, sparkling under lights, metallic texture, glamorous and eye-catching"
       },
       {
         "label": "商务西装",
-        "value": "tailored navy blue business suit, sharp look"
+        "value": "tailored navy blue fine wool business suit, subtle sheen, structured shoulders, sharp crease lines, professional look"
       }
     ]
   }
