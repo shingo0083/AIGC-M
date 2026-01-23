@@ -1,155 +1,147 @@
-# Genesis Prompt Generator (v0.1 Preview)
+# Genesis Prompt Generator
 
-![Version](https://img.shields.io/badge/version-v0.1--preview-blue)
-![Vue](https://img.shields.io/badge/Frontend-Vue3%20%2B%20Element%20Plus-42b883)
-![Python](https://img.shields.io/badge/Backend-FastAPI-3776ab)
+![Version](https://img.shields.io/badge/version-v0.1.1--stable-brightgreen)
+![Frontend](https://img.shields.io/badge/Frontend-Vue3%20%2B%20Element%20Plus-42b883)
+![Backend](https://img.shields.io/badge/Backend-FastAPI-3776ab)
 ![Deploy](https://img.shields.io/badge/Deployment-Vercel-000000)
 
-**Genesis Prompt Generator** 是一个模块化、配置驱动的 AI 指令构建与生图系统。
+**Genesis Prompt Generator** 是一个高度模块化、配置驱动的 **AIGC Prompt 构建与图像生成系统**。
 
-它不仅仅是一个简单的生图工具，更是一个**“风格架构师”**。通过 JSON 配置，你可以无需编写代码，即可无限扩展新的艺术风格、角色预设和场景组合，并利用 Google Gemini (或兼容 API) 进行高质量的图像生成。
+它并非简单的“提示词拼接器”，而是一个具备**结构约束、物理一致性、摄影语义校正与自动 lint 能力**的 PromptBuilder 引擎，面向 **真实摄影 / 高保真视觉生成** 场景进行系统级设计。
 
-> 🚀 **v0.1 预览版特性**：已支持文生图、图生图、多图融合，且完全适配移动端响应式布局。
-
----
-
-## ✨ 核心特性
-
-* **🧩 配置驱动架构 (Configuration Driven)**：
-    * 前端界面由后端 JSON 数据动态渲染。
-    * 添加新风格只需新建 JSON 文件，无需修改前端代码。
-* **🤖 自然语言拼接引擎**：
-    * 独创的 `Template` + `Slots` 机制，将离散的标签自动组装成通顺的自然语言 Prompt。
-* **🖼️ 多模态生图支持**：
-    * 集成 Google Gemini 视觉模型。
-    * 支持 **垫图 (Image-to-Image)** 和 **多图融合 (Multi-Image Fusion)**。
-* **📱 全响应式设计**：
-    * PC 端：左右分栏，参数与预览实时对照，Sticky 吸顶设计。
-    * 移动端：上下流式布局，完美适配手机操作。
-* **☁️ Serverless 部署**：
-    * 原生支持 Vercel 一键部署，前后端自动路由。
+当前版本 **v0.1.1** 标志着：
+> 📌 **Photography PromptBuilder 已进入稳定阶段**（Framing Lock + Diegetic Lighting + Physics Engine + Lint Rules）
 
 ---
 
-## 🛠️ 快速开始 (本地开发)
+## ✨ 核心能力概览
 
-### 前置要求
-* Node.js 16+
-* Python 3.10+
+### 🧠 PromptBuilder（系统核心）
+- **结构化 Prompt 模板**：Role / Task / Framing / Equipment / Subject / Styling / Environment / Physics / Constraints
+- **层级优先级控制**：身份与构图优先，其次光照真实感，最后才是物理与材质细节
+- **全自动自然语言拼接**：避免标签堆叠，输出可直接用于高质量生图
 
-### 1. 克隆项目
+### 📸 真实摄影专用能力（v0.1.1 稳定）
+- **Frame Integrity Lock**：
+  - 全身构图强约束（Head-to-Toe，不裁切，不丢脚）
+  - Establishing Shot 环境优先逻辑
+- **Diegetic Lighting 校验**：
+  - 自动检测并修正“假光源 / 影棚光 / 非物理背光”
+  - 夜景场景下自动约束月光、城市灯光的物理合理性
+- **物理与材质引擎（PHYSICS_ENGINE）**：
+  - 胸型 / 重力 / 承托 / 接触阴影
+  - 针织 / 丝绸 / 紧身 / 透明材质的受力与反射语义
+- **Prompt Lint 规则系统**：
+  - 自动消除语义冲突（如：夜景 + 强太阳光）
+  - 自动清理残留标点、断裂短语
+
+### 🧩 完全配置驱动（低代码）
+- 新风格 = 新 JSON（无需改前端）
+- 新材质 / 新服装 / 新镜头语义 = 扩展 assets 即可
+- PromptBuilder 是**唯一真相源**，避免前后端逻辑分裂
+
+---
+
+## 🏗️ 技术架构
+
+```text
+Frontend (Vue3 + Vite)
+ └─ PromptBuilder (TypeScript)
+     ├─ engine.ts        # 语义规则 / 物理引擎 / lint
+     ├─ index.ts         # Prompt 结构拼装
+
+Backend (FastAPI)
+ └─ Smart Blueprint Builder
+     ├─ Prompt 再组装
+     ├─ Diegetic 光照兜底
+     ├─ 上游错误人话化
+```
+
+---
+
+## 🚀 快速开始（本地开发）
+
+### 环境要求
+- Node.js 16+
+- Python 3.10+
+
+### 1️⃣ 克隆仓库
 ```bash
-git clone [https://github.com/yourname/genesis-prompt-gen.git]
-cd genesis-prompt-gen
-2. 后端启动 (API)
-Bash
+git clone https://github.com/shingo0083/AIGC-M.git
+cd AIGC-M
+```
 
-# 建议先创建并激活虚拟环境 (可选)
-# python -m venv venv
-# .\venv\Scripts\activate
-
-# 安装依赖
+### 2️⃣ 启动后端（FastAPI）
+```bash
 cd api
 pip install -r requirements.txt
 
-# 配置环境变量
-# 复制 .env.example 为 .env 并填入你的 API Key
-# GEMINI_API_KEY=sk-xxxx
+# 配置环境变量（.env）
+# GEMINI_API_KEY=your_key_here
 
-# 启动后端服务 (默认端口 8000)
 python index.py
-3. 前端启动 (UI)
-打开一个新的终端窗口：
+```
+默认端口：`http://127.0.0.1:8000`
 
-Bash
-
+### 3️⃣ 启动前端（Vue）
+```bash
 cd frontend
-
-# 安装依赖
 npm install
-
-# 启动开发服务器
 npm run dev
-访问显示的本地地址 (通常为 http://localhost:5173) 即可开始使用。
+```
+浏览器访问：`http://localhost:5173`
 
-📦 数据包扩充指南 (核心玩法)
-Genesis 的核心优势在于低代码扩展。你不需要懂 Python 或 Vue，只需要编辑 JSON 文本，就可以创造全新的生图风格。
+---
 
-所有数据均存储在 api/data/ 目录下。
+## 📦 数据与风格扩展（核心玩法）
 
-步骤一：定义风格控制器 (Style Manifest)
-在 api/data/styles/ 目录下新建一个 JSON 文件，例如 cyberpunk.json。这是风格的“大脑”。
+所有可扩展数据均位于：
+```text
+api/data/
+ ├─ styles/        # 风格 Manifest（Prompt 结构）
+ ├─ assets/        # 服装 / 场景 / 材质 / 妆容等
+ └─ global.json    # 物理与通用规则真相源
+```
 
-JSON
+### 新增一个摄影风格（示意）
+1. 在 `api/data/styles/` 新建 `photography.json`
+2. 定义 Prompt 模板与 slots
+3. 在 `assets/` 中补充对应选项
 
-{
-  "id": "cyberpunk_v1",               // 唯一ID (用于文件名生成前缀)
-  "name": "赛博朋克 (Cyberpunk)",      // 显示在前端按钮上的名字
-  "description": "高科技、低生活的霓虹夜景风格",
+无需重启前端，刷新即生效。
 
-  // 1. 定义 Prompt 模板
-  // {xxx} 是占位符，会对应下方的 slots 或 dictionaries
-  "template": "A futuristic {shot_type} of a character with {body_type}. Wearing {clothing}. Standing in {scene} with {lighting}. {trigger_words}",
+---
 
-  // 2. 定义静态词典 (固定插入的词)
-  "dictionaries": {
-    "trigger_words": { "value": "cyberpunk style, neon lights, highly detailed, 8k resolution" }
-  },
+## 🌐 部署（Vercel 推荐）
 
-  // 3. 定义动态插槽 (前端下拉框)
-  "slots": {
-    // source: 指向具体的资产文件路径
-    // label: 前端显示的下拉框标题
-    "clothing": { "source": "cyberpunk/clothing.json", "label": "科技服装" },
-    "scene":    { "source": "cyberpunk/scenes.json",   "label": "夜之城场景" },
-    
-    // 如果某个通用槽位不需要，可以设为 null 或不写 source
-    "lighting": { "source": null, "label": "光影 (本风格禁用)" }
-  }
-}
-步骤二：填充资产包 (Assets)
-根据上一步 source 定义的路径，在 api/data/assets/ 下创建文件夹和文件。 例如新建 api/data/assets/cyberpunk/clothing.json：
+- Framework Preset：Vite
+- Build Command：
+```bash
+cd frontend && npm install && npm run build
+```
+- Output Directory：`frontend/dist`
+- 环境变量：
+  - `GEMINI_API_KEY`
 
-JSON
+---
 
-[
-  {
-    "label": "轻型装备", // 分组标题
-    "options": [
-      { 
-        "label": "黑客夹克", // 下拉框选项名
-        "value": "black leather bomber jacket with glowing led strips on collar" // 实际生成的 Prompt
-      },
-      { 
-        "label": "光学迷彩", 
-        "value": "translucent holographic raincoat" 
-      }
-    ]
-  },
-  {
-    "label": "重型义体",
-    "options": [
-      { "label": "机械外骨骼", "value": "heavy industrial mechanical exoskeleton suit" }
-    ]
-  }
-]
-完成！ 无需重启后端，刷新网页，新的“赛博朋克”风格就会立刻出现，并且拥有你定义的“科技服装”选项。
+## 🏷️ 版本策略
 
-🚀 部署上线 (Vercel)
-本项目专为 Vercel Serverless 环境优化。
+- `v0.1`：Initial Preview（历史锚点）
+- `v0.1.1`：Photography PromptBuilder 稳定版（当前）
 
-将代码 Push 到 GitHub。
+后续将采用：
+- `v0.1.x`：稳定修复
+- `v0.2.x`：结构升级
 
-在 Vercel 导入项目。
+---
 
-关键配置：
+## 📜 License
 
-Framework Preset: 选择 Vite。
+MIT License
 
-Build Command: cd frontend && npm install && npm run build
+---
 
-Output Directory: public
+> Genesis Prompt Generator
+> 从“拼 Prompt”进化为“**设计 Prompt 系统**”。
 
-在 Environment Variables 中填入 GEMINI_API_KEY 等环境变量。
-
-点击 Deploy 即可上线。
