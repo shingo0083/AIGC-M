@@ -14,7 +14,7 @@ export function getAdaptiveFacePrompt(originalFacePrompt: string, framing: strin
     // 远景/全身：减少微细节，防噪点与脸崩
     if (f.includes("full") || f.includes("wide") || f.includes("distanced") || f.includes("far")) {
         return originalFacePrompt
-            .replace(/pores|pore|skin texture|freckles|eyelash detail|micro/gim, "")
+            .replace(/pores|pore|skin texture|freckles|eyelash detail|micro|high-frequency|specular|eye reflections|crisp/gim, "")
             .replace(/\s+/g, " ")
             .trim()
     }
@@ -245,3 +245,95 @@ export function normalizeFilmText(filmText: string) {
 
     return t
 }
+// ==================== HARD CONSTRAINT MODULES ====================
+export const FRAME_INTEGRITY_FULLBODY = `
+### FRAME INTEGRITY (FULL-BODY LOCK)
+CRITICAL FRAMING RULES:
+- Full body must be visible from head to toe.
+- Entire subject must be fully inside the frame.
+- Feet must be visible, shoes visible, and ground/floor visible under the feet.
+- No cropping: do not cut off head, feet, legs, arms, hands, or any part of the body.
+- Leave comfortable margin around the full figure (do not frame too tight).
+- Subject appears small within the environment (environment-first composition).
+`.trim()
+
+export const LIGHT_SOURCE_LEGITIMACY = `
+### LIGHT SOURCE LEGITIMACY (DIEGETIC LIGHTING ONLY)
+CRITICAL LIGHTING RULES:
+- All lighting must come from realistic, scene-justified sources (diegetic lighting).
+- No studio lighting, no invisible rim light, no artificial backlight placed behind the subject.
+- If a strong backlight exists, it must be clearly explainable (e.g., visible interior lamp, visible signboard reflection, visible streetlight glow).
+- Moonlight is soft and low-intensity: it cannot create a powerful studio-like rim light.
+- Night city windows should show plausible light behavior: soft ambient bounce, subtle reflections, and realistic intensity falloff.
+`.trim()
+
+// ==================== PROMPT LINT UTILITIES ====================
+/**
+ * LINT-1: Sanitize lighting text when diegetic lighting is enforced
+ * - Removes studio-like rim/back light language
+ * - Rewrites into scene-justified descriptions
+ */
+export function lintLightingForDiegeticSources(
+    lightingText: string,
+    sceneText: string
+) {
+    if (!lightingText) return lightingText
+
+    let t = lightingText
+
+    const lowerScene = (sceneText || "").toLowerCase()
+    const isNight = lowerScene.includes("night") || lowerScene.includes("city")
+
+    // Remove explicit studio-style terms
+    t = t
+        .replace(/\brim light\b[^,;]*/gi, "")
+        .replace(/\bstrong backlighting\b[^,;]*/gi, "")
+        .replace(/\bbacklighting\b[^,;]*/gi, "")
+        .replace(/\bback light\b[^,;]*/gi, "")
+
+
+    // Rewrite silhouette if night scene
+    if (isNight && t.match(/silhouette/gi)) {
+        t = t.replace(
+            /silhouette( effect)?/gi,
+            "subject silhouetted against distant city lights and interior ambient reflections"
+        )
+    }
+    // Normalize spacing
+    t = t.replace(/\s*,\s*/g, ", ")
+        .replace(/\s+/g, " ")
+        .trim()
+
+    // Remove leading/trailing punctuation fragments caused by deletions
+    t = t
+        .replace(/^[,\s]+/g, "")
+        .replace(/[,\s]+$/g, "")
+        .replace(/,\s*,+/g, ",")
+        .trim()
+    
+        if (!t || !/[a-zA-Z]/.test(t)) return ""
+    return t
+
+}
+
+/**
+ * LINT-2: Prevent cinematic lighting from overriding realism in wide/full shots
+ */
+export function lintCinematicLighting(styleText: string, shotType: string) {
+    if (!styleText) return styleText
+
+    const s = shotType.toLowerCase()
+    const isWide =
+        s.includes("full") || s.includes("wide") || s.includes("establishing")
+
+    if (isWide) {
+        return styleText.replace(
+            /\bcinematic lighting\b/gi,
+            "cinematic mood with realistic lighting"
+        )
+    }
+
+    return styleText
+}
+
+

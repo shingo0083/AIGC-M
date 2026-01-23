@@ -95,8 +95,20 @@ def build_blueprint(
 
     role = (style_config or {}).get("role", "You are a professional photographer.")
     neg = (style_config or {}).get("negative_prompt", "")
+    # ✅ 追加光源相关 negative，防止模型偷加影棚轮廓灯
+    extra_neg = "studio lighting, rim light, hard rimlight, spotlight backlight, invisible light source, fake backlight behind subject"
+    if neg:
+        neg = f"{neg}, {extra_neg}"
+    else:
+        neg = extra_neg
 
     has_role_in_prompt = "**role:**" in lower_prompt
+    # ✅ 如果 user_prompt 已经是“结构化蓝图”，后端不要再二次包裹（避免层级冲突）
+    has_blueprint_in_prompt = (
+        "### generation blueprint" in lower_prompt
+        or "### 1. subject description" in lower_prompt
+        or "**render priority:**" in lower_prompt
+    )
 
     # --- 1. 组装各个模块 ---
 
@@ -117,6 +129,18 @@ def build_blueprint(
         lod_lines.append(
             "(Render Priority: Focus on high-frequency skin details, pores, and eye reflections.)"
         )
+    # ✅ Problem-1 兜底：全身/远景强制防裁切（仅当后端在构建蓝图时）
+    frame_integrity_lines = []
+    if any(k in lower_prompt for k in ["full body", "wide shot", "establishing shot", "ultra wide", "head-to-toe"]):
+        frame_integrity_lines = [
+        "### FRAME INTEGRITY (FULL-BODY LOCK)",
+        "- Full body must be visible from head to toe.",
+        "- Entire subject must be fully inside the frame.",
+        "- Feet visible, shoes visible, and ground visible under the feet.",
+        "- No cropping: do not cut off head, feet, legs, arms, hands, or any body part.",
+        "- Leave comfortable margin around the full figure (do not frame too tight).",
+        "- Subject appears small within the environment (environment-first composition).",
+    ]
 
     # [B] 物理与材质 (扩充词库!)
     physics_notes = []
@@ -155,6 +179,10 @@ def build_blueprint(
     # --- 2. 动态拼接 (只拼接有内容的板块) ---
 
     blocks = []
+    # ✅ 前端已输出完整蓝图：后端只做 minimal 包装（或直接返回）
+    if has_blueprint_in_prompt:
+        # 仍然允许 style_config 的 negative 追加（可选）；更稳的是完全不追加，避免重复 negative
+        return user_prompt
 
     # Header: Role（只有当 user_prompt 本身没有 Role 块时才追加）
     if role and not has_role_in_prompt:
@@ -165,9 +193,27 @@ def build_blueprint(
     # Block 1: Strategy
     if lod_lines:
         blocks.append(f"**1. STRATEGY & LOD:**\n" + "\n".join(lod_lines))
+        
+    if frame_integrity_lines:
+        blocks.append("\n".join(frame_integrity_lines))
 
     # Block 2: Action（永远显示）
     blocks.append(f"**2. SCENE & ACTION:**\n{user_prompt}")
+    # ✅ Problem-2 兜底：光源必须场景内合理（diegetic），禁止影棚轮廓灯
+    light_legitimacy_lines = []
+    is_night_hint = any(k in lower_prompt for k in ["night", "moon", "midnight", "dark"])
+    if is_night_hint:
+        light_legitimacy_lines = [
+        "### LIGHT SOURCE LEGITIMACY (DIEGETIC LIGHTING ONLY)",
+        "- All lighting must come from realistic, scene-justified sources (diegetic lighting).",
+        "- No studio lighting, no invisible rim light, no artificial backlight placed behind the subject.",
+        "- If a strong backlight exists, it must be explainable (visible streetlight, visible sign, visible interior lamp, etc.).",
+        "- Moonlight is soft and low-intensity: it cannot create a powerful studio-like rim light.",
+        "- Night city lighting should show plausible bounce/reflections and realistic intensity falloff.",
+    ]
+
+    if light_legitimacy_lines:
+        blocks.append("\n".join(light_legitimacy_lines))
 
     # Block 3: Enhancers（只有当检测到材质时才显示）
     if physics_str:

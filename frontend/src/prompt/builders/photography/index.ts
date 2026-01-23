@@ -10,6 +10,10 @@ import {
   buildUnifiedPhysics,
   splitCameraAndLens,     // ✅ 新增
   normalizeFilmText,      // ✅ 新增
+  FRAME_INTEGRITY_FULLBODY, // ✅ 新增
+  LIGHT_SOURCE_LEGITIMACY,  // ✅ 新增
+  lintLightingForDiegeticSources, // ✅ 新增
+  lintCinematicLighting,          // ✅ 新增
 } from "./engine"
 
 export const photographyBuilder = {
@@ -50,9 +54,12 @@ export const photographyBuilder = {
       ctx.manifest?.controller?.role ||
       "You are a professional photographer."
 
-    const styleDesc =
+    let styleDesc =
       ctx.manifest?.dictionaries?.trigger_words?.value ||
       "award-winning photography, realistic optics, clean geometry"
+
+    // ✅ LINT-2: prevent cinematic lighting from hijacking realism in wide shots
+    styleDesc = lintCinematicLighting(styleDesc, shotType)
 
     /* ==================== Prompt 开始 ==================== */
     let prompt = `**Role:** ${roleStr}\n`
@@ -69,6 +76,10 @@ export const photographyBuilder = {
       }
     } else if (isNonEmpty(shotType)) {
       prompt += `**Framing:** ${shotType}\n`
+    }
+    // ✅ Template rule: hard framing lock for full/wide/establishing shots
+    if (shotLower.includes("full") || shotLower.includes("wide") || shotLower.includes("establishing") || shotLower.includes("ultra wide")) {
+      prompt += `${FRAME_INTEGRITY_FULLBODY}\n`
     }
 
     /* ========= Equipment ========= */
@@ -125,7 +136,7 @@ export const photographyBuilder = {
     }
     const subjectDeemphasis = guardSubjectVsEstablishing(shotType, bodyType, clothing, pose)
     if (subjectDeemphasis) {
-    prompt += `(${subjectDeemphasis})\n`
+      prompt += `(${subjectDeemphasis})\n`
     }
 
     // Bust physics（由 global.json.cup_sizes 的 value 生成结构化物理提示）
@@ -162,10 +173,20 @@ export const photographyBuilder = {
     /* ========= Environment ========= */
     prompt += `\n### 3. Environment & Cinematography\n`
     if (isNonEmpty(scene)) prompt += `**Scene:** ${scene}\n`
-    const lightingFixed = guardLightingVsScene(scene, lighting)
+    const lightingGuarded = guardLightingVsScene(scene, lighting)
+
+    // ✅ LINT-1: sanitize lighting when diegetic lighting is enforced
+    const lightingFixed = lintLightingForDiegeticSources(
+      lightingGuarded,
+      scene
+    )
+    // ✅ Template rule: diegetic lighting only (prevents fake studio rim/back lights)
+    if (isNonEmpty(scene) || isNonEmpty(lightingFixed)) {
+      prompt += `${LIGHT_SOURCE_LEGITIMACY}\n`
+    }
 
     if (isNonEmpty(lightingFixed)) {
-    prompt += `**Lighting:** ${lightingFixed}`
+      prompt += `**Lighting:** ${lightingFixed}`
       if (lightingNeedsAdaptation(cameraHeight, lightingFixed)) {
         prompt += ` (adapt lighting geometry to camera angle while preserving contrast)`
       }
@@ -194,7 +215,9 @@ export const photographyBuilder = {
     prompt += `- No blur, noise, distortion, extra limbs, text, watermark.\n`
 
     /* ========= Negative ========= */
-    const negative = ctx.manifest?.controller?.negative_prompt || ""
+    const baseNegative = ctx.manifest?.controller?.negative_prompt || ""
+    const extraNegative = "studio lighting, rim light, hard rimlight, spotlight backlight, invisible light source, fake backlight behind subject"
+    const negative = baseNegative ? `${baseNegative}, ${extraNegative}` : extraNegative
 
     return {
       prompt,
@@ -215,10 +238,15 @@ export const photographyBuilder = {
       const s = shotType.toLowerCase()
       const l = lensLine.toLowerCase()
 
-      const wantsUltraWide = s.includes("ultra wide") || s.includes("establishing")
+      const wantsWide =
+        s.includes("wide") ||
+        s.includes("full") ||
+        s.includes("establishing") ||
+        s.includes("full-body")
+
       const isTeleOrStandard = l.includes("50mm") || l.includes("85mm") || l.includes("f/1.2") || l.includes("f/1.4")
 
-      if (wantsUltraWide && isTeleOrStandard) {
+      if (wantsWide && isTeleOrStandard) {
         return "A lens suitable for wide environmental coverage (avoid conflicting focal-length cues)."
       }
       return lensLine
