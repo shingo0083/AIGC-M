@@ -104,37 +104,50 @@ export function isExtremePose(moveText: string) {
     )
 }
 
-/**
- * PHYSICS_ENGINE: 由 global.json.cup_sizes[*].value 派生
- * 输入 cupSizeDesc（就是你表单里 cup_size 的 value，长描述）
- * 输出：结构化的胸部物理与布料交互提示
- */
+function getBustImpactLevel(desc: string): "minimal" | "compact" | "moderate" | "broad" | "dominant" {
+    const t = desc.toLowerCase()
+
+    if (t.includes("small") || t.includes("faint") || t.includes("minimal")) return "minimal"
+    if (t.includes("modest")) return "compact"
+    if (t.includes("medium-large") || (t.includes("large") && !t.includes("very"))) return "broad"
+    if (t.includes("medium")) return "moderate"
+    if (t.includes("very large") || t.includes("extremely large") || t.includes("dominates")) return "dominant"
+    return "dominant"
+}
+
 export function buildBustPhysics(cupSizeDesc: string) {
     const t = String(cupSizeDesc || "").trim()
     if (!t) return ""
 
     const lines: string[] = []
+    const lower = t.toLowerCase()
+    const impact = getBustImpactLevel(t)
 
-    // 1) 直接保留 global.json 的描述（这是你的“单一真相源”）
     lines.push(`- Bust physics baseline: ${t}`)
-
-    // 2) 统一强化（不管 A~G，都是稳定加成）
     lines.push(`- Ensure consistent underbust boundary and natural shading; avoid unnatural sharp edges or plastic-looking gradients.`)
     lines.push(`- Fabric interaction: respect tension, compression, and drape; no floating cloth, no clipping into skin.`)
+    lines.push(`- Avoid purely neckline-defined volume; bust mass must influence fabric behavior beyond the neckline opening.`)
+    lines.push(`- Size differences must be legible at a glance through underbust contact, localized compression zones, seam-tension direction, and gravity-driven drape, not exposure or stylization.`)
 
-    // 3) 如果描述里提到重量/重力/阴影（大杯常见），强化“接触/承托/挤压”
-    const lower = t.toLowerCase()
-    if (lower.includes("gravitational") || lower.includes("weight") || lower.includes("underbust") || lower.includes("contact")) {
-        lines.push(`- Weight & support cues: show believable load-bearing, subtle compression at contact points, and stable silhouette.`)
-    }
+    lines.push(
+        `- Bust mass must influence fabric over a ${impact} area: ` +
+        `the contact footprint, tension field, and gravity-driven drape should scale accordingly, ` +
+        `making relative size differences immediately legible even under identical clothing and framing.`
+    )
 
-    // 4) 如果描述里提到“subtle / faint / modest”（小杯常见），避免夸张曲线
-    if (lower.includes("subtle") || lower.includes("faint") || lower.includes("modest") || lower.includes("minimal")) {
+    // 分档输出：让“小也有小的信号”，“大也有大的范围”
+    if (impact === "minimal" || impact === "compact") {
+        lines.push(`- Load distribution should remain compact and close to the ribcage profile (smaller compression footprint, shorter drape curvature).`)
         lines.push(`- Proportion guardrail: keep curvature subtle; avoid exaggerated volume or unrealistic cleavage.`)
+    } else if (impact === "broad" || impact === "dominant") {
+        lines.push(`- Weight & support cues: express downward load through localized fabric compression, underbust contact shadows, and gravity-driven curvature, even in relaxed or supported poses.`)
+        lines.push(`- Load distribution should be broad and clearly affects surrounding fabric (wider tension field, larger compression footprint, longer drape curvature), while remaining realistic.`)
     }
 
+    // moderate 可不加额外条款，避免噪声
     return lines.join("\n")
 }
+
 
 /**
 * 材质词库（合并版）：根据 clothing 文本自动生成材质/受力/反光/透明度等提示
@@ -180,17 +193,44 @@ export function buildUnifiedPhysics(cupSizeDesc: string, clothingText: string) {
     const material = buildMaterialPhysics(clothingText)
 
     const blocks: string[] = []
-    if (bust) blocks.push(
-        `**Bust / Gravity:**\n` +
-        `- Physics cues must be clearly present and physically correct, but must not become the primary visual focus.\n` +
-        `- Different bust volumes must produce visibly different fabric deformation patterns (tension, drape, compression) while remaining realistic.\n` +
-        `${bust}`
-    )
 
-    if (material) blocks.push(`**Material / Fabric:**\n${material}`)
+    if (bust) {
+        blocks.push(
+            `**Bust / Gravity:**\n` +
+            // 0) 先立验收标准：相对可判别性是硬要求（与 bust 内部一致）
+            `- Relative bust size differences must be immediately legible at a glance, even without explicit exposure or measurement.\n` +
+            `- If different bust volumes appear similar under the same clothing, pose, framing, and lighting, the physics expression is considered incorrect.\n` +
+
+            // 1) 强制差异来源：必须来自不可避免的物理后果
+            `- Size differences must be expressed through unavoidable physical effects: underbust contact, localized compression footprint, fabric load distribution, seam-tension direction, and gravity-driven drape.\n` +
+            `- Underbust boundary must be legible through contact shadow + compression, not a smooth mannequin gradient.\n` +
+            `- Do not rely on cleavage depth, exposure, or neckline stylization to imply size differences.\n` +
+
+
+            // 2) 系统级防 neckline 幻觉（统一 guard）
+            `- Avoid purely neckline-defined volume; bust mass must influence fabric behavior beyond the neckline opening.\n` +
+
+            // 3) 然后再插入 bust baseline 与分档细则（由 buildBustPhysics 提供）
+            `${bust}\n` +
+
+            // 4) 最后再“降噪”：不抢主角，但必须可读
+            `- Physics cues must be physically correct and present, but must not become the primary visual focus.\n` +
+            `- Keep signals realistic and integrated into photography; no mannequin-smooth gradients or overly sculpted shaping.\n`
+        )
+    }
+
+    if (material) {
+        blocks.push(
+            `**Material / Fabric:**\n` +
+            // Material 也加一句“不要抢戏但要可信”，避免布料逻辑被忽略
+            `- Material cues must support photorealism: gravity-driven folds, seam tension, and contact shadows should read naturally without drawing attention.\n` +
+            `${material}`
+        )
+    }
 
     return blocks.join("\n\n").trim()
 }
+
 /**
  * 从 camera slot 的文本里“拆出镜头信息”
  * 例：
