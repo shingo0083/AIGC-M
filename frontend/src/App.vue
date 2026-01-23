@@ -213,6 +213,17 @@ const copyPrompt = () => {
   ElMessage.success('已复制')
 }
 
+const getActiveStyleId = () => {
+  return (
+    currentStyleId.value ||
+    currentManifest.value?.id ||
+    currentManifest.value?.style_id ||
+    'anime_v1'
+  )
+}
+
+const isPhotographyStyle = () => String(getActiveStyleId()).startsWith('photography')
+
 // 🔥🔥🔥 新增：调用后端编译 Prompt 🔥🔥🔥
 const handleCompile = async () => {
   compiling.value = true
@@ -222,7 +233,7 @@ const handleCompile = async () => {
       style_config: currentManifest.value ? currentManifest.value.controller : null,
       images: base64Images.value, // 告诉后端有没有图片(影响锁脸指令)
       aspect_ratio: form.aspect_ratio || '3:4',
-      disable_backend_physics: currentManifest.value?.id === 'photography'
+      disable_backend_physics: isPhotographyStyle()
     }
     const res = await axios.post(`${API_BASE}/compile`, payload)
     if (res.data.status === 'success') {
@@ -253,7 +264,7 @@ const handleGenerate = async () => {
       images: base64Images.value,
       aspect_ratio: form.aspect_ratio || '3:4',
       style_config: currentManifest.value ? currentManifest.value.controller : null,
-      disable_backend_physics: currentManifest.value?.id === 'photography'
+      disable_backend_physics: isPhotographyStyle()
     }
     const res = await axios.post(`${API_BASE}/generate`, payload)
     if (res.data.status === 'success') {
@@ -265,8 +276,26 @@ const handleGenerate = async () => {
 }
 
 const downloadImage = (url) => {
-  const link = document.createElement('a'); link.href = url; link.download = `Genesis_${Date.now()}.png`; document.body.appendChild(link); link.click(); document.body.removeChild(link)
+  const pad2 = (n) => String(n).padStart(2, "0")
+  const d = new Date()
+  const ymd = `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}`
+  const rand = Math.floor(100000 + Math.random() * 900000) // 6位随机数
+
+  const sid = String(currentStyleId?.value ?? currentStyleId ?? "")
+  const prefix =
+    sid.startsWith("photography") ? "Photo" :
+      sid.startsWith("anime_v1") ? "Anime" :
+        sid.startsWith("fantasy_v1") ? "Fanta" :
+          "Genesis"
+
+  const link = document.createElement("a")
+  link.href = url
+  link.download = `${prefix}_${ymd}_${rand}.png`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
+
 </script>
 
 <style>

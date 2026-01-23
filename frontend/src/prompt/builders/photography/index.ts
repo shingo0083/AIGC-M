@@ -57,6 +57,19 @@ export const photographyBuilder = {
     /* ==================== Prompt 开始 ==================== */
     let prompt = `**Role:** ${roleStr}\n`
     prompt += `**Task:** Capture a photorealistic photograph. ${styleDesc}\n`
+    /* ========= Hierarchy (Core first) ========= */
+    prompt += `**Render Priority:** Identity & composition first; subject clarity next; lighting realism next; camera/film as secondary; physics/material only as subtle realism enhancers.\n`
+
+    const shotLower = shotType.toLowerCase()
+    if (shotLower.includes("full")) {
+      if (isGroundAction(pose)) {
+        prompt += `**Framing:** ${shotType}. Feet visible only if physically plausible.\n`
+      } else {
+        prompt += `**Framing:** ${shotType}. (CRITICAL: head-to-toe, do not crop feet.)\n`
+      }
+    } else if (isNonEmpty(shotType)) {
+      prompt += `**Framing:** ${shotType}\n`
+    }
 
     /* ========= Equipment ========= */
     prompt += `\n**Equipment:**\n`
@@ -86,6 +99,7 @@ export const photographyBuilder = {
     if (isNonEmpty(lensHint)) lensLine = lensHint
     if (useAutoLens) lensLine = recommendedLens!
 
+    lensLine = guardLensVsFraming(shotType, lensLine)
     prompt += `- Lens: ${lensLine}\n`
 
     // 如果是 suggest 模式且有推荐，作为“建议”附加（不强行覆盖）
@@ -109,10 +123,13 @@ export const photographyBuilder = {
     if (isNonEmpty(bodyType)) {
       prompt += `**Physique:** ${bodyType}\n`
     }
+    const subjectDeemphasis = guardSubjectVsEstablishing(shotType, bodyType, clothing, pose)
+    if (subjectDeemphasis) {
+    prompt += `(${subjectDeemphasis})\n`
+    }
 
     // Bust physics（由 global.json.cup_sizes 的 value 生成结构化物理提示）
     const physicsBlock = buildUnifiedPhysics(cupSize, clothing)
-
 
     if (isExtremePose(pose)) {
       prompt += `(Hyper-flexible anatomy:1.2), (dynamic contortion:1.1). `
@@ -142,33 +159,17 @@ export const photographyBuilder = {
     if (isNonEmpty(makeup)) prompt += `**Makeup:** ${makeup}\n`
     if (isNonEmpty(pose)) prompt += `**Pose:** ${pose}\n`
 
-
-    // ========= Physics & Material =========
-    if (physicsBlock) {
-      prompt += `\n### 2.5 Physics & Material\n`
-      prompt += `${physicsBlock}\n`
-    }
-
-
     /* ========= Environment ========= */
     prompt += `\n### 3. Environment & Cinematography\n`
     if (isNonEmpty(scene)) prompt += `**Scene:** ${scene}\n`
-    if (isNonEmpty(lighting)) {
-      prompt += `**Lighting:** ${lighting}`
-      if (lightingNeedsAdaptation(cameraHeight, lighting)) {
+    const lightingFixed = guardLightingVsScene(scene, lighting)
+
+    if (isNonEmpty(lightingFixed)) {
+    prompt += `**Lighting:** ${lightingFixed}`
+      if (lightingNeedsAdaptation(cameraHeight, lightingFixed)) {
         prompt += ` (adapt lighting geometry to camera angle while preserving contrast)`
       }
       prompt += "\n"
-    }
-
-    if (shotType.toLowerCase().includes("full")) {
-      if (isGroundAction(pose)) {
-        prompt += `**Framing:** ${shotType}. Feet visible only if physically plausible.\n`
-      } else {
-        prompt += `**Framing:** ${shotType}. (CRITICAL: head-to-toe, do not crop feet.)\n`
-      }
-    } else if (isNonEmpty(shotType)) {
-      prompt += `**Framing:** ${shotType}\n`
     }
 
     /* ========= Mirror Constitution ========= */
@@ -177,6 +178,13 @@ export const photographyBuilder = {
       if (shotType.toLowerCase().includes("full")) {
         prompt += `(OOTD mirror shot: shoes must be visible in reflection.)\n`
       }
+    }
+
+    /* ========= Realism Enhancers (Physics & Material) ========= */
+    if (physicsBlock) {
+      prompt += `\n### 3.5 Realism Enhancers (Physics & Material)\n`
+      prompt += `(Physics/material cues must remain subtle; do not dominate composition or draw attention away from photography.)\n`
+      prompt += `${physicsBlock}\n`
     }
 
     /* ========= Constraints ========= */
@@ -201,6 +209,42 @@ export const photographyBuilder = {
           usedRecommendedLens: useAutoLens,
         },
       },
+    }
+
+    function guardLensVsFraming(shotType: string, lensLine: string) {
+      const s = shotType.toLowerCase()
+      const l = lensLine.toLowerCase()
+
+      const wantsUltraWide = s.includes("ultra wide") || s.includes("establishing")
+      const isTeleOrStandard = l.includes("50mm") || l.includes("85mm") || l.includes("f/1.2") || l.includes("f/1.4")
+
+      if (wantsUltraWide && isTeleOrStandard) {
+        return "A lens suitable for wide environmental coverage (avoid conflicting focal-length cues)."
+      }
+      return lensLine
+    }
+
+    function guardLightingVsScene(scene: string, lighting: string) {
+      const sc = (scene || "").toLowerCase()
+      const li = (lighting || "").toLowerCase()
+
+      const isNight = sc.includes("night")
+      const isSun = li.includes("golden hour") || li.includes("sunlight") || li.includes("low angle sun")
+
+      if (isNight && isSun) {
+        return "Warm ambient urban lighting with directional highlights, mimicking golden-hour tones (physically plausible at night)."
+      }
+      return lighting
+    }
+
+    function guardSubjectVsEstablishing(shotType: string, bodyType: string, clothing: string, pose: string) {
+      const s = shotType.toLowerCase()
+      const strongSubject = `${bodyType} ${clothing} ${pose}`.toLowerCase().match(/voluptuous|sensual|attractive|curves|bodycon|tight/) != null
+
+      if (s.includes("establishing") && strongSubject) {
+        return "The subject remains visually integrated into the environment rather than dominating the frame."
+      }
+      return ""
     }
   },
 }
