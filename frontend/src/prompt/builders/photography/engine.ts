@@ -180,7 +180,13 @@ export function buildUnifiedPhysics(cupSizeDesc: string, clothingText: string) {
     const material = buildMaterialPhysics(clothingText)
 
     const blocks: string[] = []
-    if (bust) blocks.push(`**Bust / Gravity:**\n- Physics cues must be clearly present and physically correct, but must not become the primary visual focus.\n${bust}`)
+    if (bust) blocks.push(
+        `**Bust / Gravity:**\n` +
+        `- Physics cues must be clearly present and physically correct, but must not become the primary visual focus.\n` +
+        `- Different bust volumes must produce visibly different fabric deformation patterns (tension, drape, compression) while remaining realistic.\n` +
+        `${bust}`
+    )
+
     if (material) blocks.push(`**Material / Fabric:**\n${material}`)
 
     return blocks.join("\n\n").trim()
@@ -310,8 +316,8 @@ export function lintLightingForDiegeticSources(
         .replace(/[,\s]+$/g, "")
         .replace(/,\s*,+/g, ",")
         .trim()
-    
-        if (!t || !/[a-zA-Z]/.test(t)) return ""
+
+    if (!t || !/[a-zA-Z]/.test(t)) return ""
     return t
 
 }
