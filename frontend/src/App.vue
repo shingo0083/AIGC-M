@@ -128,6 +128,7 @@ import { ref, reactive, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { Plus, Download, Loading } from '@element-plus/icons-vue'
+import { getBuilder } from './prompt/builders/registry'
 
 const API_BASE = import.meta.env.DEV ? 'http://127.0.0.1:8000/api' : '/api'
 
@@ -187,12 +188,24 @@ const handleFileChange = async (uploadFile, uploadFiles) => {
 // === 纯前端拼接的“草稿” ===
 const computedDraftPrompt = computed(() => {
   if (!currentManifest.value) return ''
-  let t = currentManifest.value.template
-  const ctx = { ...form, ...currentManifest.value.dictionaries }
-  Object.keys(currentManifest.value.dictionaries || {}).forEach(k => ctx[k] = ctx[k].value)
-  let prompt = t.replace(/\{(\w+)\}/g, (_, k) => ctx[k] || '')
-  prompt = prompt.replace(/\s+/g, ' ').replace(/,\s*\./g, '.').replace(/\s([,.])/g, '$1').replace(/,+/g, ',').replace(/\.+/g, '.').replace(/,([^\s])/g, ', $1').replace(/^[,.\s]+|[,.\s]+$/g, '').trim()
-  return prompt
+
+  const styleId =
+    currentStyleId.value ||
+    currentManifest.value.id ||
+    currentManifest.value.style_id ||
+    'anime_v1'
+
+  const builder = getBuilder(styleId)
+
+  const result = builder.build({
+    styleId,
+    form,
+    manifest: currentManifest.value,
+    assets: currentSlotsData.value,
+    hasImages: (base64Images.value?.length || 0) > 0
+  })
+
+  return result.prompt
 })
 
 const copyPrompt = () => {
@@ -208,12 +221,16 @@ const handleCompile = async () => {
       prompt: computedDraftPrompt.value, // 把草稿发给后端
       style_config: currentManifest.value ? currentManifest.value.controller : null,
       images: base64Images.value, // 告诉后端有没有图片(影响锁脸指令)
-      aspect_ratio: form.aspect_ratio || '3:4'
+      aspect_ratio: form.aspect_ratio || '3:4',
+      disable_backend_physics: currentManifest.value?.id === 'photography'
     }
     const res = await axios.post(`${API_BASE}/compile`, payload)
     if (res.data.status === 'success') {
       compiledPrompt.value = res.data.blueprint // 更新为“真·蓝图”
       ElMessage.success('指令已优化')
+    } else {
+      compiledPrompt.value = ''
+      ElMessage.error(res.data.message || '编译失败')
     }
   } catch (e) { ElMessage.error('编译失败') }
   finally { compiling.value = false }
@@ -226,13 +243,17 @@ const handleGenerate = async () => {
   try {
     // 自动触发一次编译（确保 Prompt 是最新的）
     if (!compiledPrompt.value) await handleCompile()
-
+    if (!compiledPrompt.value) {
+      ElMessage.error('指令编译失败，已中止生成')
+      return
+    }
     const payload = {
       prompt: computedDraftPrompt.value, // 后端会再次由 draft -> blueprint，保证一致性
       model: 'gemini-3-pro-image-preview',
       images: base64Images.value,
       aspect_ratio: form.aspect_ratio || '3:4',
-      style_config: currentManifest.value ? currentManifest.value.controller : null
+      style_config: currentManifest.value ? currentManifest.value.controller : null,
+      disable_backend_physics: currentManifest.value?.id === 'photography'
     }
     const res = await axios.post(`${API_BASE}/generate`, payload)
     if (res.data.status === 'success') {

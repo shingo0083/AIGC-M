@@ -29,7 +29,7 @@ def load_json(relative_path):
     except: return None
 
 # ==================== 核心逻辑：蓝图构建器 (Smart Builder) ====================
-def build_blueprint(prompt: str, style_config: dict, has_images: bool):
+def build_blueprint(prompt: str, style_config: dict, has_images: bool, aspect_ratio: str = None, disable_backend_physics: bool = False):
     ...
     """
     智能蓝图构建：
@@ -57,19 +57,21 @@ def build_blueprint(prompt: str, style_config: dict, has_images: bool):
     
     # [B] 物理与材质 (扩充词库!)
     physics_notes = []
-    # 针织类
-    if any(k in lower_prompt for k in ["knit", "sweater", "cardigan", "wool", "fleece"]): 
-        physics_notes.append("Focus on the fluffy, fuzzy texture of the knit fabric.")
-    # 丝绸类
-    if any(k in lower_prompt for k in ["silk", "satin", "slip dress", "viscose"]): 
-        physics_notes.append("Render the liquid-like sheen and fluid drape of the material.")
-    # 紧身/胶衣
-    if any(k in lower_prompt for k in ["tight", "bodycon", "yoga", "latex", "leather"]): 
-        physics_notes.append("Fabric should appear stretching tightly over body curves. Render distinct texture highlights.")
-    # 透视/蕾丝 (新增!)
-    if any(k in lower_prompt for k in ["lace", "sheer", "translucent", "tulle", "chiffon"]): 
-        physics_notes.append("Render delicate transparency, intricate embroidery texture, and soft interaction between fabric and skin tone.")
-    
+
+    if not disable_backend_physics:
+        # 针织类
+        if any(k in lower_prompt for k in ["knit", "sweater", "cardigan", "wool", "fleece"]):
+            physics_notes.append("Focus on the fluffy, fuzzy texture of the knit fabric.")
+        # 丝绸类
+        if any(k in lower_prompt for k in ["silk", "satin", "slip dress", "viscose"]):
+            physics_notes.append("Render the liquid-like sheen and fluid drape of the material.")
+        # 紧身/胶衣
+        if any(k in lower_prompt for k in ["tight", "bodycon", "yoga", "latex", "leather"]):
+            physics_notes.append("Fabric should appear stretching tightly over body curves. Render distinct texture highlights.")
+        # 透视/蕾丝
+        if any(k in lower_prompt for k in ["lace", "sheer", "translucent", "tulle", "chiffon"]):
+            physics_notes.append("Render delicate transparency, intricate embroidery texture, and soft interaction between fabric and skin tone.")
+
     physics_str = " ".join(physics_notes)
 
     # --- 2. 动态拼接 (只拼接有内容的板块) ---
@@ -146,22 +148,25 @@ class GenerateRequest(BaseModel):
     images: List[str] = []
     aspect_ratio: str = "3:4"
     style_config: Optional[dict] = None
+    disable_backend_physics: bool = False
 
 # 🔥 新增：仅编译 Prompt，不生成图片
 @app.post("/api/compile")
 async def compile_prompt(req: GenerateRequest):
-    blueprint = build_blueprint(req.prompt, req.style_config, bool(req.images))
+    blueprint = build_blueprint(req.prompt, req.style_config, bool(req.images), req.aspect_ratio, req.disable_backend_physics)
     return {"status": "success", "blueprint": blueprint}
 
 @app.post("/api/generate")
 async def generate_image(req: GenerateRequest):
     api_url = os.getenv("GEMINI_API_URL", "http://156.238.229.55:3000")
     api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return {"status": "error", "message": "GEMINI_API_KEY 未设置"}
     model_name = os.getenv("GEMINI_MODEL", req.model)
     target_url = f"{api_url}/v1beta/models/{model_name}:generateContent"
     
     # 调用共用的构建逻辑
-    final_prompt = build_blueprint(req.prompt, req.style_config, bool(req.images))
+    final_prompt = build_blueprint(req.prompt, req.style_config, bool(req.images), req.aspect_ratio, req.disable_backend_physics)
     print(f"🧠 Prompt Executing: {final_prompt[:50]}...")
 
     parts = [{"text": final_prompt}]
