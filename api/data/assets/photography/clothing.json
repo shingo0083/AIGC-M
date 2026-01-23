@@ -74,5 +74,42 @@
         "value": "tailored navy blue fine wool business suit, subtle sheen, structured shoulders, sharp crease lines, professional look"
       }
     ]
+  },
+  {
+    "label": "影楼服装款式 (Studio Silhouette)",
+    "options": [
+      {
+        "label": "高开叉长裙",
+        "value": "floor-length dress with high side slit, elongated vertical lines, flowing fabric revealing leg movement, dynamic silhouette, elegant and dramatic studio-friendly design"
+      },
+      {
+        "label": "露背礼服",
+        "value": "backless evening dress with clean open-back cut, smooth fabric tension across the torso, subtle curvature emphasis, refined and sensual studio aesthetic"
+      },
+      {
+        "label": "抹胸贴身裙",
+        "value": "strapless form-fitting dress, clean neckline exposing shoulders and collarbones, fabric hugging the body contours, minimal distractions, strong silhouette definition"
+      },
+      {
+        "label": "一字肩长裙",
+        "value": "off-the-shoulder long dress, wide horizontal neckline highlighting shoulders, soft draping fabric, balanced elegance and romantic studio look"
+      },
+      {
+        "label": "深V礼服",
+        "value": "deep V-neck gown, elongated neckline creating vertical emphasis, controlled exposure, structured fabric shaping the upper body, classic studio glamour style"
+      },
+      {
+        "label": "轻纱叠层长裙",
+        "value": "multi-layered sheer tulle dress, semi-transparent fabric layers, soft light diffusion, airy volume responding to movement, dreamy and cinematic studio effect"
+      },
+      {
+        "label": "贴身开衩礼服",
+        "value": "slim-fit gown with controlled slit, fabric tension following body posture, subtle leg reveal, strong vertical silhouette, mature and confident studio presence"
+      },
+      {
+        "label": "露肩修身礼服",
+        "value": "shoulder-exposing fitted dress, sculpted upper-body lines, smooth fabric surface, elegant posture emphasis, refined studio portrait style"
+      }
+    ]
   }
 ]

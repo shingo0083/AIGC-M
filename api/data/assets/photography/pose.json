@@ -2,17 +2,72 @@
   {
     "label": "优雅摆拍 (Elegant)",
     "options": [
-      { "label": "回眸一瞥", "value": "looking back over shoulder with an elegant and alluring gaze, showcasing the neck line" },
-      { "label": "撩发瞬间", "value": "gently running fingers through hair, arms raised to highlight body curves, candid moment" },
-      { "label": "侧身剪影", "value": "standing sideways to camera, highlighting the S-curve silhouette against the light" }
+      {
+        "label": "回眸一瞥",
+        "value": "looking back over shoulder with an elegant and alluring gaze, showcasing the neck line"
+      },
+      {
+        "label": "撩发瞬间",
+        "value": "gently running fingers through hair, arms raised to highlight body curves, candid moment"
+      },
+      {
+        "label": "侧身剪影",
+        "value": "standing sideways to camera, highlighting the S-curve silhouette against the light"
+      }
     ]
   },
   {
     "label": "慵懒性感 (Sultry)",
     "options": [
-      { "label": "跪姿/鸭子坐", "value": "sitting on knees in a cute but sexy pose, leaning forward slightly" },
-      { "label": "伸懒腰", "value": "stretching arms overhead, arching back slightly to accentuate the waistline" },
-      { "label": "俯视视角", "value": "looking up at the camera from a lower angle, vulnerable and innocent expression" }
+      {
+        "label": "跪姿/鸭子坐",
+        "value": "sitting on knees in a cute but sexy pose, leaning forward slightly"
+      },
+      {
+        "label": "伸懒腰",
+        "value": "stretching arms overhead, arching back slightly to accentuate the waistline"
+      },
+      {
+        "label": "俯视视角",
+        "value": "looking up at the camera from a lower angle, vulnerable and innocent expression"
+      }
+    ]
+  },
+  {
+    "label": "影楼性感姿态 (Studio Sultry)",
+    "options": [
+      {
+        "label": "站姿重心偏移",
+        "value": "standing with weight shifted to one leg, relaxed hip tilt, natural S-curve posture, subtle body tension emphasizing silhouette"
+      },
+      {
+        "label": "侧身回眸",
+        "value": "standing sideways to the camera, turning head back over shoulder, elongated neck line, calm and confident expression"
+      },
+      {
+        "label": "身体微前倾",
+        "value": "upper body leaning slightly forward, shoulders relaxed, subtle curve emphasis, intimate yet controlled studio posture"
+      },
+      {
+        "label": "抬手触发丝",
+        "value": "one arm raised gently touching hair, exposed shoulder line, relaxed pose creating natural asymmetry and elegance"
+      },
+      {
+        "label": "双臂上举伸展",
+        "value": "both arms lifted overhead in a gentle stretch, torso elongated, natural curve through the waist, graceful and confident stance"
+      },
+      {
+        "label": "靠立姿态",
+        "value": "leaning lightly against a surface, one knee slightly bent, relaxed posture with clean body lines, effortless sensual mood"
+      },
+      {
+        "label": "行走中回头",
+        "value": "walking forward naturally while turning head back toward the camera, subtle motion captured, relaxed and candid studio feel"
+      },
+      {
+        "label": "站立转胯",
+        "value": "standing with gentle hip rotation, shoulders relaxed, balanced posture emphasizing lower-body curves without exaggeration"
+      }
     ]
   }
 ]

@@ -65,7 +65,7 @@ export const photographyBuilder = {
     let prompt = `**Role:** ${roleStr}\n`
     prompt += `**Task:** Capture a photorealistic photograph. ${styleDesc}\n`
     /* ========= Hierarchy (Core first) ========= */
-    prompt += `**Render Priority:** Identity & composition first; subject clarity next; lighting realism next; camera/film as secondary; physics/material only as subtle realism enhancers.\n`
+    prompt += `**Render Priority:** Reference identity & composition first (identity must not be altered); subject clarity next; lighting realism next; camera/film as secondary; physics/material only as subtle realism enhancers.\n`
 
     const shotLower = shotType.toLowerCase()
     if (shotLower.includes("full")) {
@@ -128,7 +128,13 @@ export const photographyBuilder = {
     prompt += `**Identity:** ${identity}.\n`
 
     const adaptiveFace = getAdaptiveFacePrompt(baseFace, shotType)
-    prompt += `**Face Priority:** ${adaptiveFace}. (CRITICAL: This description overrides any implied facial traits.)\n`
+    prompt += `**Face Identity (Hard Constraint):**
+Preserve the reference facial identity exactly as provided.
+Do not alter facial structure, feature relationships, or proportions derived from the reference.
+Do not replace, idealize, beautify, or reinterpret the face.
+Only allow minimal corrective adjustments strictly for anatomical plausibility.
+Reference identity takes absolute priority over all inferred, aesthetic, or realism-based facial traits.
+\n`
 
     // Physique（外观描述保持简洁）
     if (isNonEmpty(bodyType)) {
@@ -168,6 +174,8 @@ export const photographyBuilder = {
     }
 
     if (isNonEmpty(makeup)) prompt += `**Makeup:** ${makeup}\n`
+    prompt += `**Face Quality (Soft Constraint):**Maintain natural skin tone, realistic skin texture, and physically plausible lighting response.Enhance clarity without altering facial identity or structure.\n`
+
     if (isNonEmpty(pose)) prompt += `**Pose:** ${pose}\n`
 
     /* ========= Environment ========= */

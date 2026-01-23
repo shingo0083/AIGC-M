@@ -49,5 +49,42 @@
         "value": "traditional Japanese tatami room, warm wooden textures, soft natural light from shoji screens"
       }
     ]
+  },
+  {
+    "label": "影楼外景类型 (Studio Outdoor Scenes)",
+    "options": [
+      {
+        "label": "城市街头空旷路段",
+        "value": "quiet urban street with clean background, minimal pedestrians, modern city environment, neutral architectural lines, natural daylight"
+      },
+      {
+        "label": "公园草地树影",
+        "value": "open park lawn with scattered trees, soft natural greenery, dappled sunlight filtering through leaves, relaxed outdoor atmosphere"
+      },
+      {
+        "label": "城市建筑外立面",
+        "value": "modern building exterior with clean walls, simple geometric lines, neutral tones, uncluttered urban backdrop"
+      },
+      {
+        "label": "林间空地",
+        "value": "wide forest clearing with visible depth and open space"
+      },
+      {
+        "label": "海边空旷沙滩",
+        "value": "open seaside beach with minimal people, wide horizon line, natural sand texture, soft coastal light and atmosphere"
+      },
+      {
+        "label": "屋顶或露台空间",
+        "value": "open rooftop or terrace with city skyline distance, clean open space, unobstructed sky, modern outdoor environment"
+      },
+      {
+        "label": "城市天桥或高架下",
+        "value": "urban overpass or elevated roadway area, strong structural lines, partial shade, graphic light and shadow patterns"
+      },
+      {
+        "label": "街边绿化带",
+        "value": "city roadside greenery with bushes and trees, controlled depth, soft natural light, casual urban outdoor feel"
+      }
+    ]
   }
 ]
