@@ -41,20 +41,40 @@
     "label": "显身材 (Bodycon)",
     "options": [
       {
-        "label": "露背毛衣",
-        "value": "backless virgin killer sweater, chunky ribbed knit texture, soft cashmere wool, form-fitting and cozy, highlighting back curve"
+        "label": "杀手毛衣 (Virgin Killer)",
+        "value": "open-back virgin killer sweater, high-neck sleeveless design, extreme side cutouts revealing side profile, ribbed knit fabric stretching tightly across the chest and hips, dangerous and provocative cut"
       },
       {
-        "label": "紧身包臀裙",
-        "value": "tight mini bodycon dress, smooth elastic fabric, stretching over body lines, matte finish, perfectly sculpting the figure"
+        "label": "超短包臀裙 (Micro Mini)",
+        "value": "ultra-tight micro mini dress, thin elastic fabric clinging to skin like water, ruched sides emphasizing hip width, strapless design, visible fabric tension lines across the body, second-skin fit"
       },
       {
-        "label": "瑜伽服",
-        "value": "tight pastel colored yoga set, buttery soft nylon fabric, matte finish, seamless design, second-skin fit"
+        "label": "提臀瑜伽裤 (Compression)",
+        "value": "skin-tight compression yoga set, high-waisted leggings creating a push-up effect on glutes, seamless design, moisture-wicking sheen, outlining lower body anatomy perfectly, athletic and sensual"
       },
       {
-        "label": "乳胶/皮衣",
-        "value": "shiny black latex bodysuit, high gloss reflection, tight and slick, capturing highlights, futuristic texture"
+        "label": "真空乳胶衣 (Vacuum Latex)",
+        "value": "vacuum-seal shiny black latex bodysuit, extreme high-gloss reflection, liquid look, high-leg cut exposing thighs, tightest possible fit wrapping around every curve, futuristic fetish aesthetic"
+      },
+      {
+        "label": "绷带塑身裙 (Bandage)",
+        "value": "signature bandage dress, thick elastic bands wrapping horizontally around the body, high compression fit, sculpting an hourglass shape, structural texture, firm and lifting effect"
+      },
+      {
+        "label": "高开叉连体衣 (High-Cut)",
+        "value": "high-cut one-piece leotard, deep plunging neckline, extreme high leg cut exposing hip bones, tight elastic fabric hugging the torso, elongating leg lines, athletic yet extremely sensual"
+      },
+      {
+        "label": "战术镂空装 (Tech Cutout)",
+        "value": "futuristic cutout bodysuit, strategic asymmetrical holes revealing waist and underboob, matte stretch fabric, buckles and straps creating tension against skin, tech-wear aesthetic"
+      },
+      {
+        "label": "透视网纱裙 (Sheer Mesh)",
+        "value": "sheer mesh mini dress with strategic opaque panels, see-through fabric revealing skin tone, tattoo-like second-skin fit, delicate embroidery texture, provocative evening wear"
+      },
+      {
+        "label": "开胸紧身衣 (Keyhole)",
+        "value": "ribbed knit top with large chest keyhole, cleavage revealing design, tight long sleeves, fabric stretching tightly across the bust, focusing intensely on upper body curves"
       }
     ]
   },
@@ -68,10 +88,6 @@
       {
         "label": "亮片长裙",
         "value": "shimmering sequin dress, sparkling under lights, metallic texture, glamorous and eye-catching"
-      },
-      {
-        "label": "商务西装",
-        "value": "tailored navy blue fine wool business suit, subtle sheen, structured shoulders, sharp crease lines, professional look"
       }
     ]
   },
@@ -109,6 +125,97 @@
       {
         "label": "露肩修身礼服",
         "value": "shoulder-exposing fitted dress, sculpted upper-body lines, smooth fabric surface, elegant posture emphasis, refined studio portrait style"
+      }
+    ]
+  },
+  {
+    "label": "压力测试 · 日常服饰 (Stress Test · Casual)",
+    "options": [
+      {
+        "label": "重磅棉宽松卫衣",
+        "value": "oversized heavyweight cotton sweatshirt, thick structured fabric with limited stretch, matte surface, natural gravity-driven folds"
+      },
+      {
+        "label": "工装背带裤",
+        "value": "utility-style cotton canvas overalls with wide shoulder straps, structured fabric, visible seam tension and load-bearing construction"
+      },
+      {
+        "label": "轻薄防风外套",
+        "value": "lightweight windbreaker jacket, thin synthetic fabric with subtle stiffness, semi-loose fit, realistic wind-responsive drape"
+      },
+      {
+        "label": "厚针织毛衣",
+        "value": "thick ribbed knit wool sweater, dense yarn structure, limited elasticity, heavy knit drape"
+      },
+      {
+        "label": "宽松重磅白T",
+        "value": "loose-fit heavyweight white cotton t-shirt, thick opaque fabric, minimal stretch, visible fabric weight"
+      }
+    ]
+  },
+  {
+    "label": "运动 (Sport/Athletic)",
+    "options": [
+      {
+        "label": "专业健身套装",
+        "value": "professional gym workout set, racerback sports bra and seamless compression leggings, moisture-wicking technical fabric, slight sheen under gym lights, muscle-sculpting fit, energetic atmosphere"
+      },
+      {
+        "label": "芭蕾练功服",
+        "value": "black camisole leotard paired with sheer pink wrap skirt, stretchy spandex bodice, delicate chiffon skirt layer, elegant neckline, emphasizing posture, graceful dance studio aesthetic"
+      },
+      {
+        "label": "网球裙套装",
+        "value": "white athletic tennis dress with pleated skirt, crisp breathable pique fabric texture, sharp clean pleats, sporty and preppy vibe, dynamic movement"
+      },
+      {
+        "label": "街舞潮服",
+        "value": "oversized grey sweatpants and tight crop top, heavy cotton jersey fabric, loose baggy silhouette with natural folds, street style hip-hop aesthetic, cool and edgy"
+      },
+      {
+        "label": "普拉提连体衣",
+        "value": "soft buttery unitard for pilates, matte brushed nylon fabric, second-skin fit, high elasticity, highlighting body flexibility and lines, calm wellness vibe"
+      },
+      {
+        "label": "跑步速干衣",
+        "value": "lightweight technical running jacket and shorts, breathable mesh panels, synthetic smooth texture, semi-fitted, reflective details, athletic performance style"
+      }
+    ]
+  },
+  {
+    "label": "民族/传统 (Traditional/Ethnic)",
+    "options": [
+      {
+        "label": "中式旗袍 (Qipao)",
+        "value": "traditional Chinese Cheongsam (Qipao), form-fitting silk satin fabric, intricate floral embroidery, high mandarin collar, pankou buttons, high side slit revealing leg, glossy finish, oriental elegance"
+      },
+      {
+        "label": "古风汉服 (Hanfu)",
+        "value": "traditional Chinese Hanfu, translucent chiffon outer robe, crossed collar design, wide flowing sleeves, pleated Mamian skirt with gold woven patterns, ethereal and fairy-like aesthetic, ancient style"
+      },
+      {
+        "label": "日式和服 (Kimono)",
+        "value": "traditional Japanese Kimono, heavy silk crepe fabric with yuzen dyeing floral patterns, wide stiff Obi sash tied at back, long hanging sleeves, multiple layers visible at collar, refined and ceremonial"
+      },
+      {
+        "label": "越南奥黛 (Ao Dai)",
+        "value": "traditional Vietnamese Ao Dai, long fitted silk tunic with high side splits up to the waist, worn over loose flowing white silk trousers, lightweight airy fabric, graceful vertical lines, pure and elegant"
+      },
+      {
+        "label": "韩式赤古里 (Hanbok)",
+        "value": "traditional Korean Hanbok, short jeogori jacket with ribbon tie, voluminous high-waisted chima skirt, stiff organza or silk fabric creating a structured bell silhouette, vibrant color blocking, clean lines"
+      },
+      {
+        "label": "印度纱丽 (Saree)",
+        "value": "traditional Indian Saree, six yards of embroidered silk fabric draped elegantly over one shoulder, paired with tight cropped blouse, rich colors with gold zari border, fluid and intricate folds"
+      },
+      {
+        "label": "巴伐利亚裙 (Dirndl)",
+        "value": "traditional German Bavarian Dirndl, tight corseted bodice with metal hooks and lacing, white puff-sleeve blouse, full gathered skirt with apron, cotton and velvet textures, festive folk style"
+      },
+      {
+        "label": "泰式绊尾幔 (Chut Thai)",
+        "value": "traditional Thai Chut Thai, one-shoulder sabai shawl made of pleated silk, wrapped sarong skirt with gold brocade patterns, metallic sheen, intricate jewelry accessories, royal elegance"
       }
     ]
   }

@@ -103,134 +103,140 @@ export function isExtremePose(moveText: string) {
         m.includes("Vacuum")
     )
 }
-
+/**
+ * 辅助函数：判断视觉冲击力等级
+ * 优化点：默认值改为 'dominant'，以配合“多样性”补丁，确保未定义的描述也能获得物理反馈
+ */
 function getBustImpactLevel(desc: string): "minimal" | "compact" | "moderate" | "broad" | "dominant" {
     const t = desc.toLowerCase()
-
-    if (t.includes("small") || t.includes("faint") || t.includes("minimal")) return "minimal"
+    if (t.includes("small") || t.includes("faint") || t.includes("minimal") || t.includes("flat")) return "minimal"
     if (t.includes("modest")) return "compact"
     if (t.includes("medium-large") || (t.includes("large") && !t.includes("very"))) return "broad"
     if (t.includes("medium")) return "moderate"
-    if (t.includes("very large") || t.includes("extremely large") || t.includes("dominates")) return "dominant"
+    if (t.includes("very large") || t.includes("extremely large") || t.includes("dominates") || t.includes("voluptuous")) return "dominant"
     return "dominant"
 }
-
+/**
+ * 【优化版】只返回与“尺寸”强相关的动态物理特征
+ * 核心改动：移除了所有通用规则（移交主函数），只保留 Load distribution 和 Interaction
+ */
 export function buildBustPhysics(cupSizeDesc: string) {
     const t = String(cupSizeDesc || "").trim()
     if (!t) return ""
 
     const lines: string[] = []
-    const lower = t.toLowerCase()
     const impact = getBustImpactLevel(t)
 
-    lines.push(`- Bust physics baseline: ${t}`)
-    lines.push(`- Ensure consistent underbust boundary and natural shading; avoid unnatural sharp edges or plastic-looking gradients.`)
-    lines.push(`- Fabric interaction: respect tension, compression, and drape; no floating cloth, no clipping into skin.`)
-    lines.push(`- Avoid purely neckline-defined volume; bust mass must influence fabric behavior beyond the neckline opening.`)
-    lines.push(`- Size differences must be legible at a glance through underbust contact, localized compression zones, seam-tension direction, and gravity-driven drape, not exposure or stylization.`)
+    // 1. 基准描述 (Dynamic Baseline)
+    lines.push(`- Baseline: ${t}`)
 
-    lines.push(
-        `- Bust mass must influence fabric over a ${impact} area: ` +
-        `the contact footprint, tension field, and gravity-driven drape should scale accordingly, ` +
-        `making relative size differences immediately legible even under identical clothing and framing.`
-    )
-
-    // 分档输出：让“小也有小的信号”，“大也有大的范围”
+    // 2. 动态特征 (Dynamic Cues based on Impact)
     if (impact === "minimal" || impact === "compact") {
-        lines.push(`- Load distribution should remain compact and close to the ribcage profile (smaller compression footprint, shorter drape curvature).`)
-        lines.push(`- Proportion guardrail: keep curvature subtle; avoid exaggerated volume or unrealistic cleavage.`)
-    } else if (impact === "broad" || impact === "dominant") {
-        lines.push(`- Weight & support cues: express downward load through localized fabric compression, underbust contact shadows, and gravity-driven curvature, even in relaxed or supported poses.`)
-        lines.push(`- Load distribution should be broad and clearly affects surrounding fabric (wider tension field, larger compression footprint, longer drape curvature), while remaining realistic.`)
+        lines.push(`- Load distribution: remains compact and close to the ribcage profile.`)
+        lines.push(`- Interaction: smaller compression footprint, shorter drape curvature, minimal seam deviation.`)
+    } else if (impact === "moderate") {
+        lines.push(`- Load distribution: balanced weight presence with natural gravity response.`)
+        lines.push(`- Interaction: visible underbust contact shadow, moderate fabric drape curvature.`)
+    } else { // broad || dominant
+        lines.push(`- Load distribution: broad tension field affecting surrounding fabric.`)
+        lines.push(`- Interaction: deep underbust contact, pronounced gravity-driven drape, localized fabric compression zones.`)
+        lines.push(`- Weight cues: downward load must be visible even in supported poses.`)
     }
 
-    // moderate 可不加额外条款，避免噪声
     return lines.join("\n")
 }
-
-
 /**
-* 材质词库（合并版）：根据 clothing 文本自动生成材质/受力/反光/透明度等提示
-*/
+ * 【增强版】材质物理引擎
+ * 新增：Gown/Formal 识别 + Default 兜底逻辑
+ */
 export function buildMaterialPhysics(clothingText: string) {
     const t = String(clothingText || "").trim()
     if (!t) return ""
 
     const lower = t.toLowerCase()
     const lines: string[] = []
+    let matchFound = false // 用于标记是否命中了特定材质
 
-    // Knit / Wool
-    if (["knit", "sweater", "cardigan", "wool", "fleece"].some(k => lower.includes(k))) {
-        lines.push(`- Knit/Wool: emphasize soft fuzzy fibers, micro texture, natural pilling, and gentle subsurface softness.`)
+    // 1. 针织/羊毛 (Knit/Wool)
+    if (["knit", "sweater", "cardigan", "wool", "fleece", "tweed"].some(k => lower.includes(k))) {
+        lines.push(`- Texture: fluffy fuzzy fibers, micro texture, soft subsurface scattering, heavy drape.`)
+        matchFound = true
     }
 
-    // Silk / Satin
-    if (["silk", "satin", "slip dress", "viscose"].some(k => lower.includes(k))) {
-        lines.push(`- Silk/Satin: render liquid-like sheen, smooth highlights, soft folds with thin drape, and realistic specular roll-off.`)
+    // 2. 丝绸/缎面 (Silk/Satin)
+    if (["silk", "satin", "slip dress", "viscose", "chiffon"].some(k => lower.includes(k))) {
+        lines.push(`- Texture: liquid-like sheen, fluid drape, realistic specular roll-off, responding sensitively to wind.`)
+        matchFound = true
     }
 
-    // Latex / Leather / Tight
-    if (["latex", "leather", "tight", "bodycon", "yoga"].some(k => lower.includes(k))) {
-        lines.push(`- Tight/Elastic/Latex/Leather: show realistic stretch tension, edge compression, and distinct glossy highlights without plastic artifacts.`)
+    // 3. 紧身/胶衣/皮革 (Tight/Latex)
+    if (["latex", "leather", "tight", "bodycon", "yoga", "swimsuit", "leotard", "bikini", "spandex"].some(k => lower.includes(k))) {
+        lines.push(`- Tension: realistic stretch gradients, edge compression, glossy highlights without plastic artifacts.`)
+        matchFound = true
     }
 
-    // Lace / Sheer
-    if (["lace", "sheer", "translucent", "tulle", "chiffon"].some(k => lower.includes(k))) {
-        lines.push(`- Lace/Sheer: keep believable transparency, fine embroidery detail, and soft color mixing between fabric and skin; avoid harsh cutout edges.`)
+    // 4. 蕾丝/透视 (Lace/Sheer)
+    if (["lace", "sheer", "translucent", "tulle", "mesh"].some(k => lower.includes(k))) {
+        lines.push(`- Transparency: believable skin-fabric blending, fine embroidery detail, no harsh cutout edges.`)
+        matchFound = true
     }
 
-    // 通用布料交互兜底（只要有衣服，就给）
-    lines.push(`- Fabric interaction: respect gravity-driven folds, seam tension, and contact shadows; avoid clipping and floating fabric.`)
+    // 5. 【新增】礼服/正装/牛仔 (Formal/Denim/Cotton) - 针对您刚才的 Gown
+    if (["gown", "dress", "suit", "blazer", "skirt", "shirt"].some(k => lower.includes(k)) && !matchFound) {
+        // 如果是礼服但没命中丝绸等，给一个通用的“高级面料”质感
+        lines.push(`- Texture: high-quality fabric structure, crisp folds, clean seam lines, natural interaction with body posture.`)
+        matchFound = true
+    }
+
+    if (["denim", "jeans", "jacket"].some(k => lower.includes(k))) {
+        lines.push(`- Texture: coarse weave visible, stiff folds, matte finish with subtle edge abrasion.`)
+        matchFound = true
+    }
+
+    // 6. 【新增】绝对兜底 (Default Fallback)
+    // 只要有衣服，但上面都没命中，就给这个通用物理规则
+    if (!matchFound) {
+        lines.push(`- Fabric Physics: respect gravity-driven folds, natural material weight, and realistic shadow occlusion.`)
+    }
 
     return lines.join("\n")
 }
-
-/**
- * 统一 PHYSICS_ENGINE：把 cup_size（重力/胸型）与 clothing（材质）合并成一个块
- */
+//**
+// 【重构核心】统一编排物理引擎
+//结构：[通用宪法] + [特定部位物理] + [特定材质物理]
+//彻底消除冗余，Tokens 利用率最大化
 export function buildUnifiedPhysics(cupSizeDesc: string, clothingText: string) {
-    const bust = buildBustPhysics(cupSizeDesc)
-    const material = buildMaterialPhysics(clothingText)
+    const bustSpecifics = buildBustPhysics(cupSizeDesc)
+    const materialSpecifics = buildMaterialPhysics(clothingText)
+
+    // 如果两个都没内容，直接返回空，不占用 token
+    if (!bustSpecifics && !materialSpecifics) return ""
 
     const blocks: string[] = []
 
-    if (bust) {
-        blocks.push(
-            `**Bust / Gravity:**\n` +
-            // 0) 先立验收标准：相对可判别性是硬要求（与 bust 内部一致）
-            `- Relative bust size differences must be immediately legible at a glance, even without explicit exposure or measurement.\n` +
-            `- If different bust volumes appear similar under the same clothing, pose, framing, and lighting, the physics expression is considered incorrect.\n` +
+    // === 1. The Physics Constitution (通用物理宪法 - 全局只写一次) ===
+    // 这些是对于 Gemini 最重要的“防幻觉”核心规则
+    const commonRules = [
+        `- Legibility Rule: Physical attributes must be legible through interaction (contact, tension, shadow), not just implied by labels.`,
+        `- Anti-Hallucination: Do not rely on exposure, cleavage depth, or purely neckline-defined volume to imply mass.`,
+        `- Fabric Logic: Respect gravity, seam tension, and displacement. No floating cloth, no mannequin-smooth gradients.`,
+        `- Integration: Physics cues must be present and correct, but remain subtle enhancers to photorealism, not the primary focus.`
+    ].join("\n")
 
-            // 1) 强制差异来源：必须来自不可避免的物理后果
-            `- Size differences must be expressed through unavoidable physical effects: underbust contact, localized compression footprint, fabric load distribution, seam-tension direction, and gravity-driven drape.\n` +
-            `- Underbust boundary must be legible through contact shadow + compression, not a smooth mannequin gradient.\n` +
-            `- Do not rely on cleavage depth, exposure, or neckline stylization to imply size differences.\n` +
+    blocks.push(`**Physics & Material Logic:**\n${commonRules}`)
 
-
-            // 2) 系统级防 neckline 幻觉（统一 guard）
-            `- Avoid purely neckline-defined volume; bust mass must influence fabric behavior beyond the neckline opening.\n` +
-
-            // 3) 然后再插入 bust baseline 与分档细则（由 buildBustPhysics 提供）
-            `${bust}\n` +
-
-            // 4) 最后再“降噪”：不抢主角，但必须可读
-            `- Physics cues must be physically correct and present, but must not become the primary visual focus.\n` +
-            `- Keep signals realistic and integrated into photography; no mannequin-smooth gradients or overly sculpted shaping.\n`
-        )
+    // === 2. Bust Dynamics (如果有) ===
+    if (bustSpecifics) {
+        blocks.push(`*Anatomy / Mass:*\n${bustSpecifics}`)
     }
 
-    if (material) {
-        blocks.push(
-            `**Material / Fabric:**\n` +
-            // Material 也加一句“不要抢戏但要可信”，避免布料逻辑被忽略
-            `- Material cues must support photorealism: gravity-driven folds, seam tension, and contact shadows should read naturally without drawing attention.\n` +
-            `${material}`
-        )
+    // === 3. Material Response (如果有) ===
+    if (materialSpecifics) {
+        blocks.push(`*Material Response:*\n${materialSpecifics}`)
     }
 
     return blocks.join("\n\n").trim()
 }
-
 /**
  * 从 camera slot 的文本里“拆出镜头信息”
  * 例：

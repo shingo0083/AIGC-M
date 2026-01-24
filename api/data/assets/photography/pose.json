@@ -13,23 +13,34 @@
       {
         "label": "侧身剪影",
         "value": "standing sideways to camera, highlighting the S-curve silhouette against the light"
-      }
-    ]
-  },
-  {
-    "label": "慵懒性感 (Sultry)",
-    "options": [
-      {
-        "label": "跪姿/鸭子坐",
-        "value": "sitting on knees in a cute but sexy pose, leaning forward slightly"
       },
       {
-        "label": "伸懒腰",
-        "value": "stretching arms overhead, arching back slightly to accentuate the waistline"
+        "label": "自信漫步 (Walking)",
+        "value": "walking confidently towards the camera, dynamic movement, fabric flowing naturally in the wind, strong fashion stride, engaging eye contact"
       },
       {
-        "label": "俯视视角",
-        "value": "looking up at the camera from a lower angle, vulnerable and innocent expression"
+        "label": "单手叉腰 (Hand on Hip)",
+        "value": "placing one hand on the waist, shifting weight to one hip, emphasizing the hourglass figure and waistline, confident and powerful stance"
+      },
+      {
+        "label": "展示美背 (Back View)",
+        "value": "turning back to the camera, head slightly turned to profile, highlighting the back muscles and spine groove, showcasing backless outfit design, elegant dorsal line"
+      },
+      {
+        "label": "优雅坐姿 (High Stool)",
+        "value": "sitting elegantly on a high stool, legs crossed or extended to show leg lines, straight posture, refined demeanor, engaging with the camera"
+      },
+      {
+        "label": "提裙/露腿 (Leg Reveal)",
+        "value": "gently lifting the hem of the dress or extending one leg forward through the slit, creating a triangle composition, highlighting leg muscle definition and footwear"
+      },
+      {
+        "label": "舒展双臂 (Stretching)",
+        "value": "stretching arms upwards or behind head, elongating the torso, lifting the chest, highlighting arm muscles and ribcage, dynamic and energetic vibe"
+      },
+      {
+        "label": "慵懒倚靠 (Leaning)",
+        "value": "leaning casually against a wall or surface, relaxed posture, body weight shifted to create natural curves, looking away thoughtfully"
       }
     ]
   },
@@ -67,6 +78,60 @@
       {
         "label": "站立转胯",
         "value": "standing with gentle hip rotation, shoulders relaxed, balanced posture emphasizing lower-body curves without exaggeration"
+      }
+    ]
+  },
+  {
+    "label": "压力测试 · 姿态 (Stress Test · Pose)",
+    "options": [
+      {
+        "label": "自然直立站姿",
+        "value": "neutral upright standing posture, balanced weight distribution, relaxed shoulders and arms"
+      },
+      {
+        "label": "轻微前倾站姿",
+        "value": "standing with a slight forward lean, hips engaged, torso angled subtly downward, natural balance"
+      },
+      {
+        "label": "侧身承重站姿",
+        "value": "standing sideways to camera with weight on one leg, hips and shoulders naturally aligned"
+      },
+      {
+        "label": "坐姿前倾",
+        "value": "seated posture with slight forward lean, forearms resting on thighs, relaxed upper body"
+      },
+      {
+        "label": "交叉手臂站姿",
+        "value": "standing with arms crossed loosely across the torso, shoulders relaxed, neutral stance"
+      },
+      {
+        "label": "单臂支撑倚靠",
+        "value": "leaning lightly against a surface with one arm supporting the body, relaxed and functional posture"
+      }
+    ]
+  },
+  {
+    "label": "健身动作 (Gym Activity)",
+    "options": [
+      {
+        "label": "深蹲准备位",
+        "value": "setting up for a barbell squat, feet planted shoulder-width apart, core braced"
+      },
+      {
+        "label": "硬拉起始位",
+        "value": "deadlift starting position, hips hinged, neutral spine, hands gripping the bar"
+      },
+      {
+        "label": "哑铃推举准备",
+        "value": "standing dumbbell press setup, elbows bent, weights held at shoulder height"
+      },
+      {
+        "label": "拉力器下拉中段",
+        "value": "mid-rep cable pulldown, elbows moving downward, controlled tension"
+      },
+      {
+        "label": "休息调整姿态",
+        "value": "brief rest between sets, hands resting on equipment, relaxed breathing posture"
       }
     ]
   }

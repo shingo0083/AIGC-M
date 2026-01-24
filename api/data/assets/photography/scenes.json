@@ -30,6 +30,38 @@
       {
         "label": "冰岛黑沙滩",
         "value": "Iceland Reynisfjara black sand beach, moody atmosphere, crashing waves"
+      },
+      {
+        "label": "威尼斯运河",
+        "value": "Venice Grand Canal, sitting on a gondola, historic colorful architecture, rippling water reflections, romantic golden hour sunset, Italian romance"
+      },
+      {
+        "label": "马尔代夫水屋",
+        "value": "Maldives luxury overwater bungalow resort, wooden walkway extending into the sea, crystal clear turquoise ocean water, bright tropical sunlight, vacation vibe"
+      },
+      {
+        "label": "瑞士阿尔卑斯",
+        "value": "Swiss Alps landscape, snow-capped mountain peaks in distance, lush green meadows with wildflowers, traditional wooden chalet, fresh clear air aesthetic"
+      },
+      {
+        "label": "纽约时代广场",
+        "value": "New York City Times Square at night, vibrant neon billboards, bustling city atmosphere, wet street reflections, cinematic urban bokeh, modern and energetic"
+      },
+      {
+        "label": "土耳其热气球",
+        "value": "Cappadocia Turkey, hundreds of colorful hot air balloons floating in the sky, unique fairy chimney rock formations, soft dreamy sunrise lighting"
+      },
+      {
+        "label": "玻利维亚天空之镜",
+        "value": "Salar de Uyuni salt flats, endless horizon, perfect mirror reflection of the sky on the ground, surreal dreamlike landscape, pure white and blue palette"
+      },
+      {
+        "label": "摩洛哥蓝城",
+        "value": "Chefchaouen Morocco, narrow streets painted in various shades of blue, intricate mosaic tiles, potted plants, exotic north African atmosphere"
+      },
+      {
+        "label": "中国长城",
+        "value": "Great Wall of China winding through layered mountains, ancient stone texture, dramatic perspective, majestic scale, autumn foliage, epic cinematic view"
       }
     ]
   },
@@ -47,6 +79,26 @@
       {
         "label": "日式榻榻米",
         "value": "traditional Japanese tatami room, warm wooden textures, soft natural light from shoji screens"
+      },
+      {
+        "label": "大理石浴室",
+        "value": "modern minimalist bathroom, white marble tiles, steamy mirror with condensation, wet surfaces, soft diffused vanity lighting, spa-like atmosphere"
+      },
+      {
+        "label": "复古书房",
+        "value": "classic vintage study room, dark wood bookshelves, leather armchair, dust motes dancing in shafts of sunlight, intellectual and moody atmosphere"
+      },
+      {
+        "label": "午后厨房",
+        "value": "open concept kitchen with kitchen island, warm wooden cabinets, sunlight streaming through blinds creating striped shadows, domestic and relaxed vibe"
+      },
+      {
+        "label": "废弃温室",
+        "value": "overgrown indoor greenhouse, glass walls, abundant tropical plants, humid atmosphere, soft filtered light, nature reclaiming architecture"
+      },
+      {
+        "label": "霓虹酒吧",
+        "value": "dimly lit jazz bar, neon signs reflecting on polished surfaces, bokeh background of city lights and bottles, cinematic night mood"
       }
     ]
   },
@@ -84,6 +136,59 @@
       {
         "label": "街边绿化带",
         "value": "city roadside greenery with bushes and trees, controlled depth, soft natural light, casual urban outdoor feel"
+      },
+      {
+        "label": "无边泳池",
+        "value": "luxury infinity pool edge, clear blue water texture, reflections of the sky, clean horizon line, summer vacation aesthetic"
+      },
+      {
+        "label": "极简水泥墙",
+        "value": "raw industrial concrete wall, brutalist architecture, gray textured background, harsh shadow play, high fashion editorial style"
+      },
+      {
+        "label": "唯美花海",
+        "value": "field of blooming wildflowers, low angle shot, depth of field blurring foreground and background, vibrant colors, dreamy romantic atmosphere"
+      },
+      {
+        "label": "海边日落",
+        "value": "secluded tropical beach at golden hour, wet sand reflecting the sun, gentle waves crashing, warm orange and purple horizon, silhouette potential"
+      },
+      {
+        "label": "欧式建筑台阶",
+        "value": "grand stone staircase of classic European architecture, marble columns, elegant leading lines, clean white stone texture, historic grandeur"
+      },
+      {
+        "label": "网球场/运动场",
+        "value": "outdoor tennis court, green surface with white boundary lines, geometric composition, bright daylight, energetic sports background"
+      }
+    ]
+  },
+  {
+    "label": "压力测试 · 城市场景 (Stress Test · Urban)",
+    "options": [
+      {
+        "label": "高架桥下",
+        "value": "urban overpass beneath elevated roadway, heavy concrete structures, partial shade, realistic ambient light"
+      },
+      {
+        "label": "天台",
+        "value": "city rooftop with open skyline, visible wind cues, realistic urban environment"
+      },
+      {
+        "label": "地铁站台",
+        "value": "subway platform interior, tiled walls, practical overhead lighting, everyday urban transit space"
+      },
+      {
+        "label": "人行天桥",
+        "value": "pedestrian overpass with metal railings, urban traffic below, functional city structure"
+      },
+      {
+        "label": "夜间街道",
+        "value": "urban street at night, practical streetlights, realistic light falloff, quiet atmosphere"
+      },
+      {
+        "label": "写字楼入口",
+        "value": "office building entrance plaza, glass and concrete surfaces, neutral corporate urban setting"
       }
     ]
   }

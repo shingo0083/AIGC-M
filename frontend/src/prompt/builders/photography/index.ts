@@ -125,6 +125,7 @@ export const photographyBuilder = {
 
     /* ========= Subject ========= */
     prompt += `\n### 1. Subject Description\n`
+    prompt += `(Statement: Anatomical diversity is a key requirement for photorealism in this task. Do not normalize body shapes.)\n`
     prompt += `**Identity:** ${identity}.\n`
 
     const adaptiveFace = getAdaptiveFacePrompt(baseFace, shotType)
@@ -260,15 +261,28 @@ Reference identity takes absolute priority over all inferred, aesthetic, or real
       return lensLine
     }
 
+    /**
+     * 【增强版】光影逻辑守卫
+     * 作用：防止“夜晚”出现“太阳/日光/阴天”等不合理光源
+     */
     function guardLightingVsScene(scene: string, lighting: string) {
       const sc = (scene || "").toLowerCase()
       const li = (lighting || "").toLowerCase()
 
-      const isNight = sc.includes("night")
-      const isSun = li.includes("golden hour") || li.includes("sunlight") || li.includes("low angle sun")
+      const isNight = sc.includes("night") || sc.includes("midnight") || sc.includes("dark")
 
-      if (isNight && isSun) {
-        return "Warm ambient urban lighting with directional highlights, mimicking golden-hour tones (physically plausible at night)."
+      // 定义所有属于“白天”的特征词
+      const isDaytimeLight =
+        li.includes("golden hour") ||
+        li.includes("sunlight") ||
+        li.includes("low angle sun") ||
+        li.includes("daylight") ||   // 新增
+        li.includes("overcast") ||   // 新增
+        li.includes("blue sky")      // 新增
+
+      if (isNight && isDaytimeLight) {
+        // 如果是夜晚但选了白天光，强制修正为“城市环境光”或“月光氛围”
+        return "Cinematic night lighting with ambient city glow and practical light sources, maintaining the dark atmosphere."
       }
       return lighting
     }
