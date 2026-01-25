@@ -1,6 +1,7 @@
 import type { BuildContext, PromptBuildResult } from "./types"
 import { photographyBuilder } from "./photography"
 import { templateStyleBuilder } from "./template_style"
+import { animeBuilder } from "./anime"
 
 export type PromptBuilder = {
   id: string
@@ -12,7 +13,7 @@ const builders: Record<string, PromptBuilder> = {
   photography: photographyBuilder,
 
   // 其它风格默认走 template+slots
-  anime_v1: templateStyleBuilder,
+  anime_v1: animeBuilder,
   fantasy_v1: templateStyleBuilder,
 }
 

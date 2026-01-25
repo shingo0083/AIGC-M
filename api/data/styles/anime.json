@@ -1,23 +1,50 @@
 {
-    "id": "anime_v1",
-    "name": "二次元动漫 (Anime)",
-    "description": "适合生成日系插画、赛璐璐风格",
-    
-    "controller": {
-      "role": "You are an expert anime concept artist. You are proficient in using NijiJourney and Stable Diffusion style prompts.",
-      "task": "Create a detailed prompt for an anime illustration based on the user's selection.",
-      "negative_prompt": "photorealistic, 3d, realistic, sketch, low quality, worst quality, grayscale, bad anatomy"
+  "id": "anime_v1",
+  "name": "二次元动漫 (Anime)",
+  "description": "适合生成日系插画、赛璐璐风格",
+  "controller": {
+    "role": "You are an expert anime concept artist.You specialize in character design, pose language, stylistic tone, and rendering techniques across multiple anime and illustration traditions.You think like an artist, describing images in terms of form, mood, texture, and visual structure.",
+    "task": "Create a detailed prompt for an anime illustration based on the user's selection.",
+    "negative_prompt": "photorealistic, 3d, realistic, lowres, low quality, worst quality, grayscale, bad anatomy, bad hands, extra fingers, missing fingers, cropped, out of frame"
+  },
+  "template": "Anime illustration. Depict a {shot_type} anime character with {body_type} and {cup_size}. Style: {artist_tone}; {brushstroke}. Pose: {pose}. Outfit: {clothing}. Headwear: {acc_head}. Weapon: {weapon}. Scene: {scene}. VFX: {vfx}. {trigger_words}",
+  "dictionaries": {
+    "trigger_words": {
+      "value": "anime style, vibrant colors, high quality"
+    }
+  },
+  "slots": {
+    "artist_tone": {
+      "label": "画师基调",
+      "source": "anime/artist_tone.json"
     },
-  
-    "template": "Draw a {shot_type} of a character with {body_type} and {cup_size}. The character is wearing {clothing}. Accesssories include {acc_head}. The scene is {scene}. {trigger_words}",
-  
-    "dictionaries": {
-      "trigger_words": { "value": "anime style, vibrant colors, high quality" }
+    "brushstroke": {
+      "label": "笔触/技法",
+      "source": "anime/brushstroke.json"
     },
-  
-    "slots": {
-      "clothing": { "source": "anime/clothing.json", "label": "服装" },
-      "acc_head": { "source": null, "label": "头饰 (此风格暂无)" }, 
-      "scene":    { "source": null, "label": "场景 (暂未配置)" }
+    "pose": {
+      "label": "姿态动作",
+      "source": "anime/pose.json"
+    },
+    "clothing": {
+      "label": "服装",
+      "source": "anime/clothing.json"
+    },
+    "acc_head": {
+      "label": "头饰",
+      "source": "anime/acc_head.json"
+    },
+    "weapon": {
+      "label": "武器装备",
+      "source": "anime/weapon.json"
+    },
+    "scene": {
+      "label": "场景",
+      "source": "anime/scenes.json"
+    },
+    "vfx": {
+      "label": "VFX",
+      "source": "anime/vfx.json"
     }
   }
+}

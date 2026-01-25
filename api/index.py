@@ -83,26 +83,53 @@ def build_blueprint(
     aspect_ratio: str = None,
     disable_backend_physics: bool = False,
 ):
-    ...
     """
     智能蓝图构建：
     1. 动态隐藏空段落
     2. 扩充材质识别库
     3. 修复逻辑冲突
     """
-    user_prompt = prompt
+    user_prompt = prompt or ""
     lower_prompt = user_prompt.lower()
 
+    # style_config 里通常是 controller（含 role / negative_prompt）
     role = (style_config or {}).get("role", "You are a professional photographer.")
-    neg = (style_config or {}).get("negative_prompt", "")
-    # ✅ 追加光源相关 negative，防止模型偷加影棚轮廓灯
-    extra_neg = "studio lighting, rim light, hard rimlight, spotlight backlight, invisible light source, fake backlight behind subject"
-    if neg:
-        neg = f"{neg}, {extra_neg}"
-    else:
-        neg = extra_neg
+    role_lower = (role or "").lower()
 
-    has_role_in_prompt = "**role:**" in lower_prompt
+    neg = (style_config or {}).get("negative_prompt", "")
+
+    # ✅ 判断是否为二次元插画：用 prompt + role 双信号
+    is_anime = (
+        ("anime illustration" in lower_prompt)
+        or ("anime style" in lower_prompt)
+        or ("anime concept artist" in role_lower)
+    )
+
+    # ✅ photography 更需要这些“影棚/轮廓灯”负面词；anime 很容易被误伤
+    if is_anime:
+        extra_neg_parts = []
+    else:
+        extra_neg_parts = [
+            "studio lighting",
+            "rim light",
+            "hard rimlight",
+            "spotlight backlight",
+            "invisible light source",
+            "fake backlight behind subject",
+        ]
+
+    # 如果正向里明确提到 rim lighting/rim light，就不要在 negative 里禁用它（仅对非 anime 有意义）
+    wants_rim = any(k in lower_prompt for k in ["rim light", "rim lighting", "rimlight"])
+    if wants_rim and extra_neg_parts:
+        extra_neg_parts = [p for p in extra_neg_parts if p not in ["rim light", "hard rimlight"]]
+
+    extra_neg = ", ".join(extra_neg_parts).strip()
+
+    # ✅ 只有 extra_neg 非空才拼接，避免出现 “xxx, ”
+    if extra_neg:
+        neg = f"{neg}, {extra_neg}" if neg else extra_neg
+
+    has_role_in_prompt = lower_prompt.strip().startswith("you are ")
     # ✅ 如果 user_prompt 已经是“结构化蓝图”，后端不要再二次包裹（避免层级冲突）
     has_blueprint_in_prompt = (
         "### generation blueprint" in lower_prompt
@@ -131,16 +158,36 @@ def build_blueprint(
         )
     # ✅ Problem-1 兜底：全身/远景强制防裁切（仅当后端在构建蓝图时）
     frame_integrity_lines = []
-    if any(k in lower_prompt for k in ["full body", "wide shot", "establishing shot", "ultra wide", "head-to-toe"]):
-        frame_integrity_lines = [
-        "### FRAME INTEGRITY (FULL-BODY LOCK)",
-        "- Full body must be visible from head to toe.",
-        "- Entire subject must be fully inside the frame.",
-        "- Feet visible, shoes visible, and ground visible under the feet.",
-        "- No cropping: do not cut off head, feet, legs, arms, hands, or any body part.",
-        "- Leave comfortable margin around the full figure (do not frame too tight).",
-        "- Subject appears small within the environment (environment-first composition).",
-    ]
+
+    if any(
+        k in lower_prompt
+        for k in ["full body", "wide shot", "establishing shot", "head-to-toe"]
+    ):
+        if aspect_ratio in ["16:9", "21:9"]:
+            # 横构图：强调“人物完整 + 横向留白”，而不是“人物很小”
+            frame_integrity_lines = [
+                "### FRAME INTEGRITY (FULL-BODY LOCK — WIDE COMPOSITION)",
+                "- Full body must be visible from head to toe.",
+                "- Entire subject must be fully inside the frame.",
+                "- Feet visible and clearly grounded on the surface.",
+                "- No cropping: do not cut off head, feet, or limbs.",
+                "- Character should be framed vertically centered within a wide horizontal canvas.",
+                "- Preserve full leg length by allocating sufficient vertical space.",
+                "- Allow generous horizontal negative space on both sides of the character.",
+                "- Avoid zooming in; maintain a full-body scale appropriate for wide-format illustration.",
+                "- Do not crop the legs to emphasize the torso; prioritize full-body visibility over character scale.",
+            ]
+        else:
+            # 竖构图（3:4 / 2:3 等）
+            frame_integrity_lines = [
+                "### FRAME INTEGRITY (FULL-BODY LOCK)",
+                "- Full body must be visible from head to toe.",
+                "- Entire subject must be fully inside the frame.",
+                "- Feet visible, shoes visible, and ground visible under the feet.",
+                "- No cropping: do not cut off head, feet, legs, arms, hands, or any body part.",
+                "- Leave comfortable margin around the full figure (do not frame too tight).",
+                "- Balanced full-body composition with clear silhouette separation.",
+            ]
 
     # [B] 物理与材质 (扩充词库!)
     physics_notes = []
@@ -193,7 +240,7 @@ def build_blueprint(
     # Block 1: Strategy
     if lod_lines:
         blocks.append(f"**1. STRATEGY & LOD:**\n" + "\n".join(lod_lines))
-        
+
     if frame_integrity_lines:
         blocks.append("\n".join(frame_integrity_lines))
 
@@ -201,16 +248,18 @@ def build_blueprint(
     blocks.append(f"**2. SCENE & ACTION:**\n{user_prompt}")
     # ✅ Problem-2 兜底：光源必须场景内合理（diegetic），禁止影棚轮廓灯
     light_legitimacy_lines = []
-    is_night_hint = any(k in lower_prompt for k in ["night", "moon", "midnight", "dark"])
-    if is_night_hint:
+    is_night_hint = any(
+        k in lower_prompt for k in ["night", "moon", "midnight", "dark"]
+    )
+    if is_night_hint and (not is_anime):
         light_legitimacy_lines = [
-        "### LIGHT SOURCE LEGITIMACY (DIEGETIC LIGHTING ONLY)",
-        "- All lighting must come from realistic, scene-justified sources (diegetic lighting).",
-        "- No studio lighting, no invisible rim light, no artificial backlight placed behind the subject.",
-        "- If a strong backlight exists, it must be explainable (visible streetlight, visible sign, visible interior lamp, etc.).",
-        "- Moonlight is soft and low-intensity: it cannot create a powerful studio-like rim light.",
-        "- Night city lighting should show plausible bounce/reflections and realistic intensity falloff.",
-    ]
+            "### LIGHT SOURCE LEGITIMACY (DIEGETIC LIGHTING ONLY)",
+            "- All lighting must come from realistic, scene-justified sources (diegetic lighting).",
+            "- No studio lighting, no invisible rim light, no artificial backlight placed behind the subject.",
+            "- If a strong backlight exists, it must be explainable (visible streetlight, visible sign, visible interior lamp, etc.).",
+            "- Moonlight is soft and low-intensity: it cannot create a powerful studio-like rim light.",
+            "- Night city lighting should show plausible bounce/reflections and realistic intensity falloff.",
+        ]
 
     if light_legitimacy_lines:
         blocks.append("\n".join(light_legitimacy_lines))

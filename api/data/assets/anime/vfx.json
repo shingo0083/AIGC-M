@@ -1,0 +1,73 @@
+[
+    {
+        "label": "高级光影 (氛围)",
+        "options": [
+            {
+                "label": "丁达尔效应 (耶稣光)",
+                "value": "dramatic volumetric lighting (god rays) streaming through the background, creating a holy atmosphere"
+            },
+            {
+                "label": "轮廓光 (边缘发光)",
+                "value": "intense cinematic rim lighting outlining the character and separating them from the background"
+            },
+            {
+                "label": "梦幻光晕 (柔光)",
+                "value": "soft, dreamlike quality with blooming highlights and lens flares, giving an ethereal look"
+            },
+            {
+                "label": "赛博霓虹",
+                "value": "vibrant pink and blue neon lights creating a high-contrast cyberpunk aesthetic with emissive glows"
+            },
+            {
+                "label": "水波纹光影",
+                "value": "shimmering water caustic patterns covering the character, as if underwater or under dappled sunlight"
+            },
+            {
+                "label": "伦勃朗光 (戏剧感)",
+                "value": "dramatic chiaroscuro lighting with strong contrasts between light and shadow for a serious mood"
+            }
+        ]
+    },
+    {
+        "label": "粒子特效 (细节)",
+        "options": [
+            {
+                "label": "漫天花瓣",
+                "value": "pink cherry blossom petals dancing in the wind around the character, creating a romantic atmosphere"
+            },
+            {
+                "label": "燃烧火星",
+                "value": "glowing orange embers and sparks floating in the air, suggesting nearby fire or intense battle heat"
+            },
+            {
+                "label": "圣洁羽毛",
+                "value": "white angel feathers drifting slowly through the air, adding a pure and majestic touch"
+            },
+            {
+                "label": "全息数据流",
+                "value": "floating blue holographic data streams and binary codes surrounding the character, sci-fi tech vibe"
+            },
+            {
+                "label": "七彩气泡",
+                "value": "iridescent soap bubbles floating around, reflecting light and adding a playful fantasy feel"
+            },
+            {
+                "label": "冰晶雪花",
+                "value": "glittering ice crystals and snowflakes suspended in the cold air, winter fantasy scene"
+            }
+        ]
+    },
+    {
+        "label": "镜头滤镜 (风格)",
+        "options": [
+            {
+                "label": "动态模糊 (速度感)",
+                "value": "motion blur effects on the background and limbs emphasizing high speed and action"
+            },
+            {
+                "label": "色差故障风 (Glitch)",
+                "value": "stylish chromatic aberration (RGB shift) and glitch effect, edgy modern digital look"
+            }
+        ]
+    }
+]

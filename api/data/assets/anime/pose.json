@@ -1,0 +1,164 @@
+[
+    {
+        "label": "站姿 (基础与进阶)",
+        "options": [
+            {
+                "label": "自然站立",
+                "value": "stands naturally with a relaxed posture, looking effortless."
+            },
+            {
+                "label": "叉腰自信",
+                "value": "stands confidently with both hands on their hips, chest puffed out."
+            },
+            {
+                "label": "回头望",
+                "value": "looking back over their shoulder with a subtle body twist, making eye contact."
+            },
+            {
+                "label": "背手",
+                "value": "stands with hands clasped behind their back, leaning forward slightly with curiosity."
+            },
+            {
+                "label": "单腿站立 (偶像感)",
+                "value": "stands on one leg in a lively idol pose, balancing energetically."
+            },
+            {
+                "label": "靠墙站立",
+                "value": "leans casually against a wall with arms crossed, looking cool."
+            },
+            {
+                "label": "内八字 (害羞)",
+                "value": "stands pigeon-toed with knees touching, looking shy and timid."
+            }
+        ]
+    },
+    {
+        "label": "坐姿 (日常与特殊)",
+        "options": [
+            {
+                "label": "正坐 (跪坐)",
+                "value": "sits formally on their knees in a seiza position, with hands resting neatly on their lap."
+            },
+            {
+                "label": "抱膝坐",
+                "value": "sits on the floor hugging their knees, curled up in a small ball."
+            },
+            {
+                "label": "鸭子坐 (W坐)",
+                "value": "sits on the floor in a W-shaped pose (duck sitting), looking cute and flexible."
+            },
+            {
+                "label": "跷二郎腿 (女王)",
+                "value": "sits on a chair with legs crossed, looking down with an arrogant and dominant vibe."
+            },
+            {
+                "label": "侧身坐",
+                "value": "sits on the floor with legs swept to one side, looking elegant."
+            },
+            {
+                "label": "抱腿悬空",
+                "value": "floats in mid-air, hugging their legs as if in zero gravity."
+            }
+        ]
+    },
+    {
+        "label": "躺姿/卧姿",
+        "options": [
+            {
+                "label": "俯卧翘脚",
+                "value": "lies on their stomach, propped up on elbows, with lower legs bent upwards playfully."
+            },
+            {
+                "label": "蜷缩侧卧",
+                "value": "lies curled up on their side in a fetal position, looking vulnerable or asleep."
+            },
+            {
+                "label": "仰卧伸手",
+                "value": "lies on their back reaching one hand up towards the sky, viewed from above."
+            },
+            {
+                "label": "大字躺",
+                "value": "lies flat on their back with arms and legs spread out, looking completely exhausted or relaxed."
+            }
+        ]
+    },
+    {
+        "label": "手部与上半身 (互动)",
+        "options": [
+            {
+                "label": "比耶 (双剪刀手)",
+                "value": "makes double peace signs with both hands near their face, smiling brightly."
+            },
+            {
+                "label": "比心",
+                "value": "makes a heart shape with their fingers, holding it near their chest or face."
+            },
+            {
+                "label": "伸出手 (邀请)",
+                "value": "reaches one hand out towards the viewer as if inviting them to come closer."
+            },
+            {
+                "label": "托腮思考",
+                "value": "rests their chin on their hand, looking lost in thought or bored."
+            },
+            {
+                "label": "食指抵唇 (嘘)",
+                "value": "places an index finger on their lips in a shushing gesture, implying a secret."
+            },
+            {
+                "label": "撩头发",
+                "value": "gently tucks a strand of hair behind their ear, looking attractive."
+            }
+        ]
+    },
+    {
+        "label": "动态 (战斗与运动)",
+        "options": [
+            {
+                "label": "奔跑",
+                "value": "running fast, leaning forward with dynamic motion."
+            },
+            {
+                "label": "跃起",
+                "value": "jumping high into the air, captured in a dynamic mid-air pose."
+            },
+            {
+                "label": "战斗架势",
+                "value": "assumes a combat stance, body tense and ready to fight."
+            },
+            {
+                "label": "高踢腿",
+                "value": "performs a high kick, leg extended straight up in a martial arts move."
+            },
+            {
+                "label": "拔刀/蓄力",
+                "value": "crouches low with a hand on their weapon, preparing to strike."
+            },
+            {
+                "label": "施法",
+                "value": "stretches arms out casting a spell, surrounded by magical energy."
+            }
+        ]
+    },
+    {
+        "label": "性格/特殊类",
+        "options": [
+            {
+                "label": "中二病姿势",
+                "value": "strikes an exaggerated, dramatic pose inspired by anime style."
+            },
+            {
+                "label": "猫娘姿势",
+                "value": "poses like a cat, curling their hands like paws."
+            },
+            {
+                "label": "僵尸/失神",
+                "value": "stands with arms hanging loosely and a blank expression, like a zombie."
+            },
+            {
+                "label": "傲娇扭头",
+                "value": "turns their head away with arms crossed and a hmph expression."
+            }
+        ]
+    }
+]

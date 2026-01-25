@@ -1,17 +1,111 @@
 [
-    {
-      "label": "校园制服类",
-      "options": [
-        { "label": "水手服 (蓝)", "value": "a blue and white sailor uniform with a pleated skirt" },
-        { "label": "运动服 (红)", "value": "a red japanese gym uniform with bloomers" },
-        { "label": "西式制服", "value": "a beige blazer school uniform with plaid skirt" }
-      ]
-    },
-    {
-      "label": "特殊服装",
-      "options": [
-        { "label": "死库水", "value": "a dark blue school swimsuit" },
-        { "label": "女仆装", "value": "a traditional black and white maid dress with frills" }
-      ]
-    }
-  ]
+  {
+    "label": "校园制服 (进阶版)",
+    "options": [
+      {
+        "label": "露脐水手服",
+        "value": "cropped sailor school uniform top revealing midriff, mini pleated skirt, loose socks"
+      },
+      {
+        "label": "不良少女 (长裙)",
+        "value": "long ankle-length pleated skirt (sukeban style), open collar shirt, rebellious attitude"
+      },
+      {
+        "label": "湿身透视衬衫",
+        "value": "white school shirt soaked and slightly translucent, clinging to skin, unbuttoned collar"
+      },
+      {
+        "label": "开衫落肩",
+        "value": "beige knit cardigan sliding off one shoulder, loose ribbon tie, messy cute vibe"
+      }
+    ]
+  },
+  {
+    "label": "特殊角色扮演 (性感/光泽)",
+    "options": [
+      {
+        "label": "兔女郎 (乳胶)",
+        "value": "glossy black latex bunny suit, fishnet tights, bunny ears, high heels, shiny texture"
+      },
+      {
+        "label": "赛车女郎",
+        "value": "tight race queen outfit, vinyl texture, zipper details, holding a checkered umbrella"
+      },
+      {
+        "label": "护士装 (粉色)",
+        "value": "stylized pink nurse uniform, short dress, white stockings, garter belt, medical cap"
+      },
+      {
+        "label": "修女服 (哥特/高开叉)",
+        "value": "gothic nun habit with gold trim, modified high-slit skirt showing leg, rosary necklace"
+      },
+      {
+        "label": "女警 (紧身)",
+        "value": "tight blue police uniform shirt, pencil skirt, handcuffs at belt, authoritative look"
+      }
+    ]
+  },
+  {
+    "label": "传统与异域 (改良款)",
+    "options": [
+      {
+        "label": "高开叉旗袍",
+        "value": "tight red cheongsam (qipao) with gold embroidery, extreme high side slit, black pantyhose"
+      },
+      {
+        "label": "巫女服 (短款)",
+        "value": "modified shrine maiden outfit, short red hakama pants, detached white sleeves, sarashi bandage wrap"
+      },
+      {
+        "label": "肚兜/中华风",
+        "value": "traditional chinese dudou (apron top) with bare back, silk fabric, ornate patterns"
+      },
+      {
+        "label": "舞娘/后宫风",
+        "value": "exotic dancer outfit, sheer veil, gold jewelry, belly chains, harem pants"
+      }
+    ]
+  },
+  {
+    "label": "现代潮流与私服 (设计感)",
+    "options": [
+      {
+        "label": "杀死处男毛衣",
+        "value": "virgin killer sweater, backless knitted turtleneck dress, sideboob visibility, gray ribbed fabric"
+      },
+      {
+        "label": "机能风 (Techwear)",
+        "value": "futuristic techwear outfit, black straps and buckles, cropped hoodie, tight bodysuit underneath"
+      },
+      {
+        "label": "露肩大号卫衣",
+        "value": "oversized hoodie worn as a dress, no pants visible (bottomless fashion), falling off shoulder"
+      },
+      {
+        "label": "偶像打歌服",
+        "value": "frilly idol stage costume, sequins and layers of lace, pastel colors, oversized bow accessories"
+      }
+    ]
+  },
+  {
+    "label": "魅惑与内衣 (高强度)",
+    "options": [
+      {
+        "label": "死库水 (高叉)",
+        "value": "high-cut school swimsuit, navy blue, stretching fabric lines, wet skin texture"
+      },
+      {
+        "label": "比基尼 (系带)",
+        "value": "micro string bikini with frills, revealing design, sun-kissed skin"
+      },
+      {
+        "label": "透视睡裙",
+        "value": "sheer silk babydoll nightgown, lace trim, soft translucent fabric, romantic atmosphere"
+      },
+      {
+        "label": "皮衣皮裤",
+        "value": "tight leather biker jacket, zipper cleavage, leather pants, cool and mature style"
+      }
+    ]
+  }
+]

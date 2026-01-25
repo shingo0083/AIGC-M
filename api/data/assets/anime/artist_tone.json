@@ -1,0 +1,70 @@
+[
+  {
+    "label": "经典日漫大师 (80s-90s)",
+    "options": [
+      {
+        "label": "北条司 (都会硬汉/熟女)",
+        "value": "art style of Tsukasa Hojo, 1980s city pop aesthetic, realistic facial proportions with sharp nose and jawline, mature beauty, detailed cross-hatching shading, retro urban noir atmosphere"
+      },
+      {
+        "label": "桂正和 (恋爱/美少女/质感)",
+        "value": "art style of Masakazu Katsura, focus on delicate female beauty and realistic anatomy, hyper-detailed rendering of clothing textures (especially denim and spandex), soft romantic lighting, expressive eyes"
+      },
+      {
+        "label": "鸟山明 (复古冒险/机械)",
+        "value": "art style of Akira Toriyama, cel-shaded anime style, clean bold outlines, distinctive eye shape, detailed retro-futuristic machinery and vehicles, adventurous atmosphere"
+      },
+      {
+        "label": "贞本义行 (EVA风格/赛璐珞)",
+        "value": "art style of Yoshiyuki Sadamoto, slender body proportions, sharp angular lines, clean cel shading, melancholic but stylish character design, 90s anime aesthetic"
+      }
+    ]
+  },
+  {
+    "label": "极致张力与潮流 (High Impact)",
+    "options": [
+      {
+        "label": "大暮维人 (超大透视/光泽)",
+        "value": "art style of Oh! Great (Ogure Ito), extreme dynamic perspective and foreshortening (fisheye lens), high contrast, glossy liquid-like skin texture, stylish mechanical details, chaotic but beautiful composition"
+      },
+      {
+        "label": "荒木飞吕彦 (JoJo立/硬朗)",
+        "value": "art style of Hirohiko Araki, high-fashion dramatic posing, heavy black ink shading lines, sculpted muscle definition, bold surreal colors, intense facial expressions"
+      },
+      {
+        "label": "今石洋之 (扳机社/波普)",
+        "value": "art style of Hiroyuki Imaishi (Studio Trigger), flat colors with neon palette, exaggerated angular geometry, erratic and energetic motion, pop-art comic aesthetic"
+      }
+    ]
+  },
+  {
+    "label": "韩系/游戏厚涂 (Game Art)",
+    "options": [
+      {
+        "label": "金亨泰 (油腻师姐/肉感)",
+        "value": "art style of Hyung-tae Kim, distinctive Korean game illustration style, exaggerated anatomical curves (wide hips and thick thighs), thick oil-painting brushstrokes, warm glowing skin texture, dramatic rim lighting"
+      },
+      {
+        "label": "ASK (极简/冷淡风)",
+        "value": "art style of ASK (pixiv), clean flat shading, muted elegant color palette, minimalist composition, delicate and sharp facial features, cold and ethereal atmosphere"
+      }
+    ]
+  },
+  {
+    "label": "独特笔触与氛围 (Atmospheric)",
+    "options": [
+      {
+        "label": "新川洋司 (水墨/合金装备)",
+        "value": "art style of Yoji Shinkawa, sumi-e ink wash painting style combined with pencil sketch, loose expressive brush strokes, monochromatic with artistic splashes of color, gritty concept art vibe"
+      },
+      {
+        "label": "村田莲尔 (复古未来/圆润)",
+        "value": "art style of Range Murata, retro-futuristic steampunk aesthetic, soft round facial features, metallic textures mixed with leather, muted earthy color tones, highly detailed accessories"
+      },
+      {
+        "label": "CLAMP (华丽/修长)",
+        "value": "art style of CLAMP, elongated limb proportions, extremely intricate jewelry and clothing patterns, flowing hair, floating feathers and petals, shoujo manga gorgeousness"
+      }
+    ]
+  }
+]
