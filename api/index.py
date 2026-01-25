@@ -349,7 +349,7 @@ async def generate_image(req: GenerateRequest):
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"}
 
     try:
-        response = requests.post(target_url, json=payload, headers=headers, timeout=120)
+        response = requests.post(target_url, json=payload, headers=headers, timeout=300)
         if response.status_code != 200:
             friendly = humanize_upstream_error(response.status_code, response.text)
             return {

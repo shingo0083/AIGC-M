@@ -114,7 +114,7 @@ function getBustImpactLevel(desc: string): "minimal" | "compact" | "moderate" | 
     if (t.includes("medium-large") || (t.includes("large") && !t.includes("very"))) return "broad"
     if (t.includes("medium")) return "moderate"
     if (t.includes("very large") || t.includes("extremely large") || t.includes("dominates") || t.includes("voluptuous")) return "dominant"
-    return "dominant"
+    return "broad"
 }
 /**
  * 【优化版】只返回与“尺寸”强相关的动态物理特征
@@ -132,15 +132,15 @@ export function buildBustPhysics(cupSizeDesc: string) {
 
     // 2. 动态特征 (Dynamic Cues based on Impact)
     if (impact === "minimal" || impact === "compact") {
-        lines.push(`- Load distribution: remains compact and close to the ribcage profile.`)
-        lines.push(`- Interaction: smaller compression footprint, shorter drape curvature, minimal seam deviation.`)
+        lines.push(`- Load distribution: compact mass stays close to the ribcage profile; shallow curvature remains distinct from the torso plane.`)
+        lines.push(`- Interaction: smaller compression footprint, short contact shadow/occlusion, minimal seam deviation and strap indentation; silhouette shows a gentle but distinct profile break from the torso plane.`)
     } else if (impact === "moderate") {
-        lines.push(`- Load distribution: balanced weight presence with natural gravity response.`)
-        lines.push(`- Interaction: visible underbust contact shadow, moderate fabric drape curvature.`)
+        lines.push(`- Load distribution: balanced mass with clear gravity response; curvature must be readable (not flattened).`)
+        lines.push(`- Interaction: visible underbust contact shadow/occlusion, directional fabric tension gradients, moderate drape curvature; silhouette curvature must remain clearly readable in the garment outline.`)
     } else { // broad || dominant
-        lines.push(`- Load distribution: broad tension field affecting surrounding fabric.`)
-        lines.push(`- Interaction: deep underbust contact, pronounced gravity-driven drape, localized fabric compression zones.`)
-        lines.push(`- Weight cues: downward load must be visible even in supported poses.`)
+        lines.push(`- Load distribution: broad tension field affecting surrounding fabric; do not homogenize into mannequin-smooth gradients.`)
+        lines.push(`- Interaction: deep underbust contact/occlusion, pronounced gravity-driven drape, localized compression zones and seam distortion; silhouette shows an unmistakable outline curvature consistent with mass and support.`)
+        lines.push(`- Weight cues: downward load remains visible even in supported poses via posture compensation (subtle shoulder/torso balance), shadowing, and tension mapping.`)
     }
 
     return lines.join("\n")
@@ -171,7 +171,7 @@ export function buildMaterialPhysics(clothingText: string) {
 
     // 3. 紧身/胶衣/皮革 (Tight/Latex)
     if (["latex", "leather", "tight", "bodycon", "yoga", "swimsuit", "leotard", "bikini", "spandex"].some(k => lower.includes(k))) {
-        lines.push(`- Tension: realistic stretch gradients, edge compression, glossy highlights without plastic artifacts.`)
+        lines.push(`- Tension: directional stretch + compression gradients (tension map), edge compression, strap/seam indentation, localized occlusion shadows; glossy highlights without plastic artifacts.`)
         matchFound = true
     }
 
@@ -217,10 +217,11 @@ export function buildUnifiedPhysics(cupSizeDesc: string, clothingText: string) {
     // === 1. The Physics Constitution (通用物理宪法 - 全局只写一次) ===
     // 这些是对于 Gemini 最重要的“防幻觉”核心规则
     const commonRules = [
-        `- Legibility Rule: Physical attributes must be legible through interaction (contact, tension, shadow), not just implied by labels.`,
-        `- Anti-Hallucination: Do not rely on exposure, cleavage depth, or purely neckline-defined volume to imply mass.`,
+        `- Legibility Rule: Physical attributes must be legible through interaction (contact, tension, shadow, silhouette), not just implied by labels.`,
+        `- Anti-Hallucination: Do not rely on exposure, cleavage depth, or purely neckline-defined volume to imply mass; express mass via contact, tension, shadow, and silhouette instead.`,
         `- Fabric Logic: Respect gravity, seam tension, and displacement. No floating cloth, no mannequin-smooth gradients.`,
-        `- Integration: Physics cues must be present and correct, but remain subtle enhancers to photorealism, not the primary focus.`
+        `- Non-Negotiable Readability: Physics cues must be clearly readable at normal viewing distance; do not over-smooth or average away distinct mass distribution.`,
+        `- Tasteful Integration: Keep cues realistic and non-fetishized; they support photorealism without becoming the narrative focus.`
     ].join("\n")
 
     blocks.push(`**Physics & Material Logic:**\n${commonRules}`)

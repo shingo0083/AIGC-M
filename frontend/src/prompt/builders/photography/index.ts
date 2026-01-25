@@ -65,7 +65,7 @@ export const photographyBuilder = {
     let prompt = `**Role:** ${roleStr}\n`
     prompt += `**Task:** Capture a photorealistic photograph. ${styleDesc}\n`
     /* ========= Hierarchy (Core first) ========= */
-    prompt += `**Render Priority:** Reference identity & composition first (identity must not be altered); subject clarity next; lighting realism next; camera/film as secondary; physics/material only as subtle realism enhancers.\n`
+    prompt += `**Render Priority:** Reference identity & composition first (identity must not be altered); subject clarity next; lighting realism next; camera/film as secondary; physics/material must remain readable and physically consistent, supporting realism without becoming the narrative focus.\n`
 
     const shotLower = shotType.toLowerCase()
     if (shotLower.includes("full")) {
@@ -125,8 +125,10 @@ export const photographyBuilder = {
 
     /* ========= Subject ========= */
     prompt += `\n### 1. Subject Description\n`
-    prompt += `(Statement: Anatomical diversity is a key requirement for photorealism in this task. Do not normalize body shapes.)\n`
+    prompt += `(Statement: Anatomical diversity is encouraged across different subjects, but within a single subject the body proportions must remain consistent. Do not normalize distinct identities.)\n`
     prompt += `**Identity:** ${identity}.\n`
+    prompt += `Body proportions and mass distribution are identity-defining and must remain consistent across generations; do not vary the subject's body shape.\n`
+    prompt += `Treat body shape as fixed like facial identity; do not resample proportions between images.\n`
 
     const adaptiveFace = getAdaptiveFacePrompt(baseFace, shotType)
     prompt += `**Face Identity (Hard Constraint):**
@@ -171,7 +173,7 @@ Reference identity takes absolute priority over all inferred, aesthetic, or real
       clothingLower.includes("leather")
 
     if (isTightCloth && physicsBlock) {
-      prompt += `- Tight garment physics: emphasize realistic compression, edge tension, and subtle fabric stretch gradients.\n`
+      prompt += `- Tight garment physics: emphasize directional tension mapping (stretch + compression), edge tension, strap/seam indentation, and localized occlusion shadows.\n`
     }
 
     if (isNonEmpty(makeup)) prompt += `**Makeup:** ${makeup}\n`
@@ -213,7 +215,7 @@ Reference identity takes absolute priority over all inferred, aesthetic, or real
     /* ========= Realism Enhancers (Physics & Material) ========= */
     if (physicsBlock) {
       prompt += `\n### 3.5 Realism Enhancers (Physics & Material)\n`
-      prompt += `(Physics/material cues must remain subtle; do not dominate composition or draw attention away from photography.)\n`
+      prompt += `(Physics/material cues must remain readable and physically consistent yet tasteful and secondary; avoid fetishized emphasis or distracting focus.)\n`
       prompt += `${physicsBlock}\n`
     }
 
@@ -256,7 +258,7 @@ Reference identity takes absolute priority over all inferred, aesthetic, or real
       const isTeleOrStandard = l.includes("50mm") || l.includes("85mm") || l.includes("f/1.2") || l.includes("f/1.4")
 
       if (wantsWide && isTeleOrStandard) {
-        return "A lens suitable for wide environmental coverage (avoid conflicting focal-length cues)."
+        return "A lens suitable for wide environmental coverage (resolve conflicting focal-length cues)."
       }
       return lensLine
     }

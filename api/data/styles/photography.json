@@ -1,7 +1,7 @@
 {
   "id": "photography",
   "name": "真实摄影 (Realism)",
-  "description": "极致的像真摄影风格，模拟高端相机与光影质感",
+  "description": "拟真摄影风格，模拟高端相机与光影质感",
   "controller": {
     "role": "You are a world-class photographer using high-end equipment like Leica and Hasselblad. Your goal is to capture award-winning, photorealistic images with perfect lighting and composition.",
     "negative_prompt": "low quality, worst quality, sketches, painting, 3d render, anime, cartoon, drawing, illustration, text, watermark, signature, bad anatomy, bad proportions, extra limbs, missing limbs, disfigured, deformed, blurry, pixelated, noise, grain, ugly, distorted face, mutated hands"
@@ -13,10 +13,6 @@
     }
   },
   "slots": {
-    "shot_type": {
-      "label": "景别 (Shot)",
-      "source": "photography/shot_type.json"
-    },
     "pose": {
       "label": "姿态动作",
       "source": "photography/pose.json"
