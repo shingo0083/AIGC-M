@@ -1,0 +1,94 @@
+{
+  "shot_types": [
+    {
+      "label": "面部特写",
+      "value": "tight close-up portrait focusing on facial features and eyes, clean framing with minimal background distraction, high detail skin and expression emphasis"
+    },
+    {
+      "label": "胸像构图",
+      "value": "portrait shot framed from chest up, balanced composition highlighting face, shoulders, and neckline, classic studio portrait framing"
+    },
+    {
+      "label": "七分身构图",
+      "value": "medium-long shot framed from mid-thigh to head, cinematic cowboy-style framing, strong subject presence with partial environment context"
+    },
+    {
+      "label": "全身标准构图",
+      "value": "full body portrait framing from head to toe, balanced proportions, feet fully visible, clean vertical composition suitable for studio outdoor shots"
+    },
+    {
+      "label": "环境人像中景",
+      "value": "medium-wide shot placing subject within surrounding environment, subject still dominant while context supports mood and story"
+    },
+    {
+      "label": "环境人像大远景",
+      "value": "wide establishing portrait with small subject relative to environment, strong sense of space and atmosphere, controlled composition for scale"
+    },
+    {
+      "label": "高角度俯拍",
+      "value": "high-angle shot looking down at the subject, altered perspective emphasizing posture and environment, clean and intentional overhead composition"
+    }
+  ],
+  "body_types": [
+    {
+      "label": "默认",
+      "value": ""
+    },
+    {
+      "label": "纤细 (Slim)",
+      "value": "naturally slender and graceful physique, lean but healthy, well-proportioned body, elegant lines, youthful and fit appearance"
+    },
+    {
+      "label": "丰满 (Plump)",
+      "value": "voluptuous body with soft curves and healthy fullness, well-proportioned torso, feminine silhouette without exaggeration"
+    },
+    {
+      "label": "健壮 (Muscular)",
+      "value": "toned yoga body with distinct 11-line abs, fit but slender limbs, taut tummy, healthy skin glow, athletic and energetic appearance"
+    }
+  ],
+  "cup_sizes": [
+    {
+      "label": "A Cup",
+      "value": "Bust volume is small and close to the ribcage profile. Subtle curvature with minimal gravitational sag. Underbust boundary and shadow are faint. In most outfits, the silhouette change is modest."
+    },
+    {
+      "label": "B Cup",
+      "value": "Bust volume is modest and clearly present. Stable contour in neutral posture with light gravitational influence. Underbust boundary is mild; shadow is soft."
+    },
+    {
+      "label": "C Cup",
+      "value": "Bust volume is medium and balanced against the torso. Clear, natural contour with moderate gravitational influence. Underbust boundary becomes visible in many angles."
+    },
+    {
+      "label": "D Cup",
+      "value": "Bust volume is medium-large and distinctly visible relative to the torso. Gravitational load produces a clearer underbust boundary and natural underbust shadow. The silhouette is visibly shaped by volume."
+    },
+    {
+      "label": "E Cup",
+      "value": "Bust volume is large and immediately apparent. Underbust boundary and contact with the torso are more pronounced due to weight and volume. Fabric tension and shape-conforming behavior appear."
+    },
+    {
+      "label": "F Cup",
+      "value": "Bust volume is very large and becomes a major contributor to upper-body silhouette. Gravitational influence is strong, creating a stable and clearly defined underbust boundary."
+    },
+    {
+      "label": "G Cup",
+      "value": "Bust volume is extremely large and dominates the upper-body massing. Weight and volume significantly affect shape; the underbust boundary and natural shadow are consistently visible."
+    }
+  ],
+  "aspect_ratios": [
+    {
+      "label": "正方形 (1:1)",
+      "value": "1:1"
+    },
+    {
+      "label": "竖屏 (3:4)",
+      "value": "3:4"
+    },
+    {
+      "label": "横屏 (16:9)",
+      "value": "16:9"
+    }
+  ]
+}

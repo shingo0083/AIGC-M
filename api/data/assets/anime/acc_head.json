@@ -1,0 +1,73 @@
+[
+    {
+        "label": "萌系与兽耳 (Kemonomimi)",
+        "options": [
+            {
+                "label": "猫耳 (毛茸茸)",
+                "value": "fluffy cat ears twitching atop the head, matching hair color, soft texture"
+            },
+            {
+                "label": "兔耳 (长)",
+                "value": "long upright bunny ears with pink insides, one ear slightly floppy"
+            },
+            {
+                "label": "恶魔角 (弯曲)",
+                "value": "dark curved demon horns protruding from the forehead, smooth obsidian texture"
+            },
+            {
+                "label": "天使光环",
+                "value": "a glowing golden halo floating above the head, emitting soft holy light"
+            },
+            {
+                "label": "狐狸面具 (侧戴)",
+                "value": "traditional kitsune mask worn on the side of the head, red and white painted patterns"
+            }
+        ]
+    },
+    {
+        "label": "日常与发饰",
+        "options": [
+            {
+                "label": "大蝴蝶结",
+                "value": "an oversized ribbon bow worn on the back of the head, trailing long fabric tails"
+            },
+            {
+                "label": "女仆喀秋莎 (头带)",
+                "value": "frilly white maid headband (headdress) with lace trim"
+            },
+            {
+                "label": "发夹 (X型)",
+                "value": "simple crossed hairpins holding back the bangs, metallic shine"
+            },
+            {
+                "label": "贝雷帽 (画家)",
+                "value": "stylish wool beret worn tilted to one side, artistic vibe"
+            },
+            {
+                "label": "鸭舌帽 (反戴)",
+                "value": "streetwear baseball cap worn backwards, sporty and cool look"
+            }
+        ]
+    },
+    {
+        "label": "科技与特殊",
+        "options": [
+            {
+                "label": "机械耳机 (猫耳款)",
+                "value": "futuristic cybernetic headphones with neon accents and cat-ear attachments"
+            },
+            {
+                "label": "战术护目镜",
+                "value": "high-tech tactical goggles resting on the forehead, orange reflective lenses"
+            },
+            {
+                "label": "眼罩 (中二/医用)",
+                "value": "single medical eyepatch covering one eye, mysterious aura"
+            },
+            {
+                "label": "皇冠 (精致)",
+                "value": "intricate golden tiara embedded with precious gemstones, royal elegance"
+            }
+        ]
+    }
+]

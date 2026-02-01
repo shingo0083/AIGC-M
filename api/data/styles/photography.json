@@ -1,0 +1,45 @@
+{
+  "id": "photography",
+  "name": "真实摄影 (Realism)",
+  "description": "拟真摄影风格，模拟高端相机与光影质感",
+  "controller": {
+    "role": "You are a world-class photographer using high-end equipment like Leica and Hasselblad. Your goal is to capture award-winning, photorealistic images with perfect lighting and composition.",
+    "negative_prompt": "low quality, worst quality, sketches, painting, 3d render, anime, cartoon, drawing, illustration, text, watermark, signature, bad anatomy, bad proportions, extra limbs, missing limbs, disfigured, deformed, blurry, pixelated, noise, grain, ugly, distorted face, mutated hands"
+  },
+  "template": "Photorealistic {shot_type} of a model with {body_type}. {pose} {makeup} Wearing {clothing}. Location is {scene}. Lighting is {lighting}. Shot on {camera}, {film_type}",
+  "dictionaries": {
+    "trigger_words": {
+      "value": "award-winning photography, highly detailed, sharp focus, cinematic lighting, 8k resolution, raw style"
+    }
+  },
+  "slots": {
+    "pose": {
+      "label": "姿态动作",
+      "source": "photography/pose.json"
+    },
+    "makeup": {
+      "label": "妆容风格",
+      "source": "photography/makeup.json"
+    },
+    "clothing": {
+      "label": "服装 (Cloth)",
+      "source": "photography/clothing.json"
+    },
+    "scene": {
+      "label": "场景 (Scene)",
+      "source": "photography/scenes.json"
+    },
+    "lighting": {
+      "label": "光影 (Light)",
+      "source": "photography/lighting.json"
+    },
+    "camera": {
+      "label": "相机 (Camera)",
+      "source": "photography/camera.json"
+    },
+    "film_type": {
+      "label": "胶片 (Film)",
+      "source": "photography/film.json"
+    }
+  }
+}

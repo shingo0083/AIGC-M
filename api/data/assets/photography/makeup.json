@@ -1,0 +1,87 @@
+[
+    {
+      "label": "素颜/伪素颜 (Natural)",
+      "options": [
+        {
+          "label": "完全素颜 (Raw Skin)",
+          "value": "no makeup look, bare skin texture, visible natural pores, slight natural redness, unstyled eyebrows, clean and fresh aesthetic, raw realism"
+        },
+        {
+          "label": "伪素颜 (No-Makeup Makeup)",
+          "value": "clean 'no-makeup' makeup look, sheer foundation, groomed natural brows, clear lip balm, subtle inner eyeliner, transparent and airy vibe"
+        },
+        {
+          "label": "奶油肌 (Cream Skin)",
+          "value": "cream skin finish, semi-matte foundation, natural pore visibility, subtle highlighter on nose bridge, gentle and clean appearance"
+        }
+      ]
+    },
+    {
+      "label": "约会/纯欲 (Date/Pure)",
+      "options": [
+        {
+          "label": "水光感 (Dewy/Glass Skin)",
+          "value": "k-beauty glass skin makeup, high-shine dewy finish, hydrating glow, glossy pink lips, pastel pink eyeshadow, youthful and sweet"
+        },
+        {
+          "label": "宿醉腮红 (Igari/Drunk)",
+          "value": "Igari style makeup (drunk blush), heavy pink blush across nose bridge and cheeks, watery eyes, smudged lips, vulnerable and cute atmosphere"
+        },
+        {
+          "label": "碎钻闪片 (Glitter)",
+          "value": "peach blossom makeup, sparkling glitter particles on eyelids and under-eyes (aegyo-sal), gradient jelly lips, romantic fairy vibe"
+        }
+      ]
+    },
+    {
+      "label": "通勤/气质 (Daily/Chic)",
+      "options": [
+        {
+          "label": "大地色系 (Earth Tone)",
+          "value": "sophisticated earth tone makeup, matte brown eyeshadow, subtle contouring for depth, nude MLBB lipstick, professional and polished"
+        },
+        {
+          "label": "泰式轻泰妆 (Thai Light)",
+          "value": "soft Thai style makeup, wild distinct eyebrows (bushy brows), sun-kissed apricot blush, matte blurred lips, energetic and confident"
+        },
+        {
+          "label": "白开水妆 (Clean Girl)",
+          "value": "clean girl aesthetic, minimal makeup, slicked back hair, soap brows, glowing healthy skin, rosy cheeks, effortless chic"
+        }
+      ]
+    },
+    {
+      "label": "浓颜/复古 (Glamour)",
+      "options": [
+        {
+          "label": "复古红唇 (Vintage Red)",
+          "value": "classic vintage Hong Kong style makeup, matte full red lipstick, sharp black eyeliner, defined eyebrows, high contrast, cinematic allure"
+        },
+        {
+          "label": "轻烟熏 (Soft Smokey)",
+          "value": "soft smokey eye makeup, grey-brown eyeshadow, voluminous mascara, nude lip color, mysterious and sexy, evening look"
+        },
+        {
+          "label": "Y2K千禧风",
+          "value": "Y2K playful makeup, frosty blue or metallic eyeshadow, heavy highlighter, glossy lips, bold eyeliner, retro-futuristic vibe"
+        }
+      ]
+    },
+    {
+      "label": "特殊/情绪 (Artistic)",
+      "options": [
+        {
+          "label": "哭泣妆 (Crying)",
+          "value": "tear-stained makeup, red puffy eyes, wet cheeks, smudged mascara, glossy lips, emotional and heartbreaking beauty"
+        },
+        {
+          "label": "雀斑晒伤 (Sunkissed)",
+          "value": "summer sunkissed makeup, heavy bronzer, scattered natural freckles across nose and cheeks, orange-toned blush, vacation vibe"
+        },
+        {
+          "label": "哥特/暗黑 (Gothic)",
+          "value": "soft gothic makeup, dark plum lipstick, pale skin, dark eyeliner, cool toned aesthetic, edgy and rebellious"
+        }
+      ]
+    }
+  ]

@@ -1,0 +1,36 @@
+[
+    {
+        "label": "线条与上色",
+        "options": [
+            {
+                "label": "赛璐璐硬边",
+                "value": "cel shading, clean lineart, crisp edges"
+            },
+            {
+                "label": "厚涂软边",
+                "value": "soft painterly shading, smooth gradients, anime painting"
+            },
+            {
+                "label": "线稿草绘",
+                "value": "sketchy lineart, rough pencil strokes, draft style"
+            }
+        ]
+    },
+    {
+        "label": "材质化技法",
+        "options": [
+            {
+                "label": "水墨风",
+                "value": "ink wash, sumi-e inspired strokes, flowing ink textures"
+            },
+            {
+                "label": "油画质感",
+                "value": "oil paint texture, visible brush strokes, painterly look"
+            },
+            {
+                "label": "水彩轻染",
+                "value": "watercolor wash, soft bleeding edges, paper texture"
+            }
+        ]
+    }
+]

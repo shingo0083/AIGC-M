@@ -1,0 +1,78 @@
+[
+    {
+        "label": "冷兵器 (刀剑)",
+        "options": [
+            {
+                "label": "日本刀 (武士)",
+                "value": "a sharp katana with a decorative hilt, gleaming steel blade reflecting the light"
+            },
+            {
+                "label": "巨剑 (重型)",
+                "value": "a massive oversized greatsword, heavy metal texture, battle-worn scratches"
+            },
+            {
+                "label": "光剑/能量刃",
+                "value": "a futuristic energy blade emitting a hum and bright neon glow"
+            },
+            {
+                "label": "双匕首 (刺客)",
+                "value": "dual wielded serrated daggers, dark matte finish, ready for stealth attacks"
+            }
+        ]
+    },
+    {
+        "label": "长柄与异形",
+        "options": [
+            {
+                "label": "死神镰刀",
+                "value": "a gigantic grim reaper scythe with a curved dark blade and ominous aura"
+            },
+            {
+                "label": "长枪/戟",
+                "value": "an ornate polearm spear with a golden tip and flowing red tassel"
+            },
+            {
+                "label": "战锤 (动力)",
+                "value": "a heavy rocket-powered warhammer with mechanical thrusters on the back"
+            }
+        ]
+    },
+    {
+        "label": "枪械与射击",
+        "options": [
+            {
+                "label": "狙击步枪 (科幻)",
+                "value": "a long-range sci-fi sniper rifle with a glowing scope and cooling vents"
+            },
+            {
+                "label": "双枪 (黑礁风)",
+                "value": "dual semi-automatic pistols held in a gun fu stance, muzzle flash visible"
+            },
+            {
+                "label": "加特林机炮",
+                "value": "a heavy rotary minigun with an ammo belt, industrial aesthetic"
+            },
+            {
+                "label": "机械弓",
+                "value": "a high-tech compound bow with energy strings and holographic targeting sights"
+            }
+        ]
+    },
+    {
+        "label": "魔法与特殊",
+        "options": [
+            {
+                "label": "魔法法杖",
+                "value": "a wooden staff topped with a floating magical crystal orb, swirling elemental particles"
+            },
+            {
+                "label": "魔导书 (悬浮)",
+                "value": "an ancient grimoire floating open in front of the character, glowing runes on pages"
+            },
+            {
+                "label": "浮游炮 (高达风)",
+                "value": "multiple autonomous laser drones (funnels) floating behind the character, ready to fire"
+            }
+        ]
+    }
+]

@@ -1,0 +1,61 @@
+[
+  {
+    "label": "影楼外景光型 (Studio Outdoor Lighting)",
+    "options": [
+      {
+        "label": "阴天漫射自然光",
+        "value": "soft overcast daylight, fully diffused light source, even illumination across face and body, minimal shadow contrast, clean and controllable studio-style outdoor lighting"
+      },
+      {
+        "label": "黄金时刻侧逆光",
+        "value": "golden hour side-back lighting, low angle warm sunlight, gentle rim light outlining silhouette, soft shadows with emotional warmth"
+      },
+      {
+        "label": "顺光柔和自然光",
+        "value": "front-facing natural daylight, soft directional light, reduced facial shadows, clear skin rendering, balanced and flattering outdoor look"
+      },
+      {
+        "label": "侧光塑形",
+        "value": "natural side lighting from one direction, controlled shadow shaping, enhanced facial and body contours, cinematic depth without harsh contrast"
+      },
+      {
+        "label": "正午硬光控制",
+        "value": "harsh noon sunlight with controlled exposure, strong directional light, crisp shadow edges, high contrast managed for clean highlights"
+      },
+      {
+        "label": "逆光轮廓光",
+        "value": "backlit natural sunlight, pronounced rim light around hair and shoulders, subject separation from background, soft silhouette emphasis"
+      },
+      {
+        "label": "树影斑驳光",
+        "value": "filtered sunlight passing through leaves, patterned light and shadow, organic texture on background, natural and lively outdoor atmosphere"
+      },
+      {
+        "label": "环境反射补光",
+        "value": "natural ambient fill from surrounding surfaces, softened shadows, balanced exposure, subtle lift in darker areas without artificial feel"
+      }
+    ]
+  },
+  {
+    "label": "人造/影棚 (Artificial)",
+    "options": [
+      {
+        "label": "伦勃朗光 (Rembrandt)",
+        "value": "Rembrandt lighting, single light source, dramatic chiaroscuro, triangle of light on cheek"
+      },
+      {
+        "label": "影棚柔光 (Softbox)",
+        "value": "professional studio softbox lighting, perfect beauty lighting, catchlights in eyes"
+      }
+    ]
+  },
+  {
+    "label": "特殊氛围 (Atmospheric)",
+    "options": [
+      {
+        "label": "丁达尔效应 (God Rays)",
+        "value": "volumetric lighting, god rays streaming through trees/windows, dusty atmosphere"
+      }
+    ]
+  }
+]

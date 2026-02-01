@@ -1,0 +1,110 @@
+[
+    {
+        "label": "日常 (校园与生活)",
+        "options": [
+            {
+                "label": "教室窗边",
+                "value": "set in a school classroom by the window, bathed in golden afternoon sunlight."
+            },
+            {
+                "label": "街道黄昏",
+                "value": "The background is a bustling city street at dusk, illuminated by warm streetlights and shop signs."
+            },
+            {
+                "label": "便利店夜晚",
+                "value": "in front of a brightly lit convenience store at night, with cool fluorescent lighting."
+            },
+            {
+                "label": "学校天台",
+                "value": "school rooftop with a chain-link fence, set against a vast blue sky with fluffy cumulus clouds."
+            },
+            {
+                "label": "温馨卧室",
+                "value": "cozy, slightly messy bedroom with soft morning light filtering through the curtains."
+            },
+            {
+                "label": "电车内部",
+                "value": "inside a commuter train during sunset, with light flickering through the windows and hand straps hanging."
+            },
+            {
+                "label": "咖啡馆",
+                "value": "stylish cafe interior with wooden furniture and a relaxing atmosphere."
+            }
+        ]
+    },
+    {
+        "label": "自然 (季节与风景)",
+        "options": [
+            {
+                "label": "夏日海滩",
+                "value": "sparkling blue ocean beach with white sand under a clear summer sky."
+            },
+            {
+                "label": "深邃森林",
+                "value": "mysterious deep forest with sunlight filtering through the leaves (komorebi)."
+            },
+            {
+                "label": "雪景街道",
+                "value": "quiet winter street covered in fresh white snow, with breath turning to mist."
+            },
+            {
+                "label": "向日葵花海",
+                "value": "vast field of sunflowers blooming brightly under a vibrant blue sky."
+            },
+            {
+                "label": "雨中街道",
+                "value": "city street on a rainy day, with reflections on the wet pavement and people holding umbrellas."
+            },
+            {
+                "label": "星空草地",
+                "value": "grassy hill at night under a breathtaking starry sky with the Milky Way visible."
+            }
+        ]
+    },
+    {
+        "label": "幻想 (魔法与古风)",
+        "options": [
+            {
+                "label": "樱花神社",
+                "value": "traditional Japanese shrine surrounded by cherry trees, with pink petals falling in the wind."
+            },
+            {
+                "label": "空中庭院",
+                "value": "fantasy garden floating in the sky, surrounded by soft clouds and waterfalls."
+            },
+            {
+                "label": "废墟遗迹",
+                "value": "ancient stone ruins overgrown with moss and vines, conveying a sense of history."
+            },
+            {
+                "label": "魔法图书馆",
+                "value": "magical library filled with towering bookshelves, floating books, and glowing artifacts."
+            },
+            {
+                "label": "水晶洞穴",
+                "value": "mystical cave filled with glowing blue crystals and an underground lake."
+            }
+        ]
+    },
+    {
+        "label": "科幻/特殊 (未来与舞台)",
+        "options": [
+            {
+                "label": "赛博朋克城市",
+                "value": "futuristic cyberpunk city street filled with neon signs, holograms, and rain."
+            },
+            {
+                "label": "太空舱/实验室",
+                "value": "high-tech spaceship or laboratory with sleek white panels and blue display screens."
+            },
+            {
+                "label": "绚丽舞台",
+                "value": "dazzling concert stage with colorful spotlights, lasers, and confetti flying."
+            },
+            {
+                "label": "纯白空间",
+                "value": "minimal abstract white space, focusing entirely on the character."
+            }
+        ]
+    }
+]

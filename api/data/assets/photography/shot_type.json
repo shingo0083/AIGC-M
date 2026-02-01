@@ -1,0 +1,35 @@
+[
+  {
+    "label": "影楼常用景别 (Studio Portrait Shots)",
+    "options": [
+      {
+        "label": "面部特写",
+        "value": "tight close-up portrait focusing on facial features and eyes, clean framing with minimal background distraction, high detail skin and expression emphasis"
+      },
+      {
+        "label": "胸像构图",
+        "value": "portrait shot framed from chest up, balanced composition highlighting face, shoulders, and neckline, classic studio portrait framing"
+      },
+      {
+        "label": "七分身构图",
+        "value": "medium-long shot framed from mid-thigh to head, cinematic cowboy-style framing, strong subject presence with partial environment context"
+      },
+      {
+        "label": "全身标准构图",
+        "value": "full body portrait framing from head to toe, balanced proportions, feet fully visible, clean vertical composition suitable for studio outdoor shots"
+      },
+      {
+        "label": "环境人像中景",
+        "value": "medium-wide shot placing subject within surrounding environment, subject still dominant while context supports mood and story"
+      },
+      {
+        "label": "环境人像大远景",
+        "value": "wide establishing portrait with small subject relative to environment, strong sense of space and atmosphere, controlled composition for scale"
+      },
+      {
+        "label": "高角度俯拍",
+        "value": "high-angle shot looking down at the subject, altered perspective emphasizing posture and environment, clean and intentional overhead composition"
+      }
+    ]
+  }
+]

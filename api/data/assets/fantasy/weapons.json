@@ -1,0 +1,16 @@
+[
+  {
+    "label": "近战",
+    "options": [
+      { "label": "双手巨剑", "value": "holding a massive greatsword with runes" },
+      { "label": "战斧", "value": "wielding a heavy battle axe" }
+    ]
+  },
+  {
+    "label": "施法",
+    "options": [
+      { "label": "魔法法杖", "value": "holding a wooden staff with a glowing crystal on top" },
+      { "label": "火焰书", "value": "reading from a floating grimoire emitting fire" }
+    ]
+  }
+]
